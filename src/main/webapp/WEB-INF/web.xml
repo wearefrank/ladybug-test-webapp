@@ -17,16 +17,14 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
+	<listener>
+		<listener-class>nl.nn.testtool.web.ServletListener</listener-class>
+	</listener>
+
 	<servlet>
 		<servlet-name>TestToolServlet</servlet-name>
 		<servlet-class>nl.nn.testtool.test.webapp.Servlet</servlet-class>
 	</servlet>
-
-	<listener>
-		<listener-class>
-			nl.nn.testtool.web.ServletListener
-		</listener-class>
-	</listener>
 
 	<servlet-mapping>
 		<servlet-name>TestToolServlet</servlet-name>
