@@ -212,6 +212,4 @@
 		<property name="xsltResource" value="nl/nn/testtool/test/junit/createreport/test1.xslt"/>
 	</bean>
 
-	<bean name="apiConfigurationProvider" class="nl.nn.testtool.web.ApiConfigurationProvider" />
-
 </beans>
