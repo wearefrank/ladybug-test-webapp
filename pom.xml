@@ -5,6 +5,10 @@
   <artifactId>ibis-ladybug-test-webapp</artifactId>
   <version>1.0-SNAPSHOT</version>
 
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
   <name>Ladybug Test Tool Test Webapp</name>
   <description>Simple vanilla webapp to test Ladybug</description>
   <packaging>war</packaging>
@@ -16,6 +20,37 @@
       <version>2.2-SNAPSHOT</version>
     </dependency>
     <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>webjars-servlet-2.x</artifactId>
+      <version>1.5</version>
+    </dependency>
+    <dependency>
+        <!-- Enable version agnostic way of working for WebJars -->
+        <groupId>org.webjars</groupId>
+        <artifactId>webjars-locator-core</artifactId>
+        <version>0.48</version>
+    </dependency>
+    <dependency>
+      <groupId>org.webjars.npm</groupId>
+      <artifactId>wearefrank__ladybug</artifactId>
+      <version>0.0.7</version>
+    </dependency>
+    <dependency>
+      <groupId>org.webjars.npm</groupId>
+      <artifactId>monaco-editor</artifactId>
+      <version>0.28.1</version>
+    </dependency>
+    <dependency>
+        <groupId>org.webjars</groupId>
+        <artifactId>bootstrap</artifactId>
+        <version>3.1.0</version>
+    </dependency>
+    <dependency>
+        <groupId>org.webjars</groupId>
+        <artifactId>jquery</artifactId>
+        <version>3.6.0</version>
+    </dependency>
+    <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
       <version>1.7.30</version>
@@ -23,7 +58,7 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-web</artifactId>
-      <version>3.2.16.RELEASE</version>
+      <version>5.3.8</version>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>

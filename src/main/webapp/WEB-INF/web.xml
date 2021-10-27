@@ -25,10 +25,18 @@
 		<servlet-name>TestToolServlet</servlet-name>
 		<servlet-class>nl.nn.testtool.test.webapp.Servlet</servlet-class>
 	</servlet>
-
 	<servlet-mapping>
 		<servlet-name>TestToolServlet</servlet-name>
 		<url-pattern>/testtool</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>WebjarsServlet</servlet-name>
+		<servlet-class>org.webjars.servlet.WebjarsServlet</servlet-class>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>WebjarsServlet</servlet-name>
+		<url-pattern>/webjars/*</url-pattern>
+	</servlet-mapping>
 </web-app>

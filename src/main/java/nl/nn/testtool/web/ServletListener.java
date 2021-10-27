@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
 /**
  * One of several methods to add the Ladybug servlets to an application. For this method to work in Tomcat make sure
  * the Ladybug jar is enabled for jar scanning (see jarsToSkip and jarsToScan in catalina.properties) or explicitly add
- * tie listener to the web.xml
+ * the listener to the web.xml
  */
 @WebListener
 public class ServletListener implements ServletContextListener {
