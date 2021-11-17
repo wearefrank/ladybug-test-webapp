@@ -20,6 +20,14 @@
       <version>2.2-SNAPSHOT</version>
     </dependency>
     <dependency>
+      <!-- Reuse transformReport.xslt from ibis-ladybug test resources. See also https://maven.apache.org/plugins/maven-jar-plugin/examples/create-test-jar.html -->
+      <groupId>org.ibissource</groupId>
+      <artifactId>ibis-ladybug</artifactId>
+      <classifier>tests</classifier>
+      <type>test-jar</type>
+      <version>2.2-SNAPSHOT</version>
+    </dependency>
+    <dependency>
       <groupId>org.webjars</groupId>
       <artifactId>webjars-servlet-2.x</artifactId>
       <version>1.5</version>
