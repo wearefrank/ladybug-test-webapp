@@ -26,6 +26,7 @@ import javax.servlet.annotation.WebListener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.webjars.servlet.WebjarsServlet;
 
 /**
  * One of several methods to add the Ladybug servlets to an application. For this method to work in Tomcat make sure
@@ -38,25 +39,31 @@ public class ServletListener implements ServletContextListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent servletContextEvent) {
-		logger.info("Initialized servlet context is found.");
 		ServletContext context = servletContextEvent.getServletContext();
-		// Add ladybug backend
-		String name = "ladybug";
+
+		String name = "LadybugBackendServlet";
 		String mapping = ApiServlet.getDefaultMapping();
-		logger.info("Registering servlet with name [" + name + "] with mapping [" + mapping + "].");
-		ServletRegistration.Dynamic serv = context.addServlet(name, ApiServlet.class);
-		serv.setLoadOnStartup(0);
-		serv.addMapping(mapping);
-		serv.setInitParameters(ApiServlet.getDefaultInitParameters());
-		context.log("Finished registering servlet with name [" + name + "] with mapping [" + mapping + "].");
-		// Add ladybug frontend server
-		name = "ladybug-frontend";
-		mapping = "/ladybug/frontend/*";
-		logger.info("Registering servlet with name [" + name + "] with mapping [" + mapping + "].");
-		serv = context.addServlet(name, FrontendServlet.class);
-		serv.setLoadOnStartup(0);
-		serv.addMapping(mapping);
-		context.log("Finished registering servlet with name [" + name + "] with mapping [" + mapping + "].");
+		logger.info("Registering servlet with name [" + name + "] with mapping [" + mapping + "]");
+		ServletRegistration.Dynamic servletRegistration = context.addServlet(name, ApiServlet.class);
+		servletRegistration.setLoadOnStartup(0);
+		servletRegistration.addMapping(mapping);
+		servletRegistration.setInitParameters(ApiServlet.getDefaultInitParameters());
+		context.log("Finished registering servlet with name [" + name + "] with mapping [" + mapping + "]");
+
+		name = "WebjarsServlet";
+		logger.info("Registering servlet with name [" + name + "]");
+		servletRegistration = context.addServlet(name, WebjarsServlet.class);
+		servletRegistration.setLoadOnStartup(0);
+		servletRegistration.addMapping("/webjars/*");
+		context.log("Finished registering servlet with name [" + name + "]");
+
+		name = "LadybugFrontendServlet";
+		mapping = FrontendServlet.getDefaultMapping();
+		logger.info("Registering servlet with name [" + name + "] with mapping [" + mapping + "]");
+		servletRegistration = context.addServlet(name, FrontendServlet.class);
+		servletRegistration.setLoadOnStartup(1);
+		servletRegistration.addMapping(mapping);
+		context.log("Finished registering servlet with name [" + name + "] with mapping [" + mapping + "]");
 	}
 
 	@Override
