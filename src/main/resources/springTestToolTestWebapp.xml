@@ -26,30 +26,6 @@
 		<property name="regexFilter" value=".*"/>
 	</bean>
 
-	<bean name="debugStorage" class="nl.nn.testtool.storage.file.Storage" autowire="byName" init-method="init">
-		<property name="name" value="Logging"/>
-		<property name="reportsFilename" value="../ibis-ladybug/logs/testtool4testtooltest.tts"/>
-		<property name="metadataFilename" value="../ibis-ladybug/logs/testtool4testtooltest.ttm"/>
-		<property name="persistentMetadata">
-			<list>
-				<value>storageId</value>
-				<value>storageSize</value>
-				<value>endTime</value>
-				<value>duration</value>
-				<value>name</value>
-				<value>correlationId</value>
-				<value>status</value>
-				<value>numberOfCheckpoints</value>
-				<value>estimatedMemoryUsage</value>
-			</list>
-		</property>
-	</bean>
-
-	<bean name="testStorage" class="nl.nn.testtool.storage.xml.XmlStorage" autowire="byName" init-method="init">
-		<property name="name" value="Test"/>
-		<property name="reportsFolder" value="../ibis-ladybug-test-webapp/src/test/testtool"/>
-	</bean>
-
 	<bean name="whiteBoxViewMetadataNames" class="java.util.ArrayList">
 		<constructor-arg>
 			<list>
@@ -213,5 +189,45 @@
 	</bean>
 
 	<bean name="rerunner" class="nl.nn.testtool.test.webapp.SimpleRerunner" autowire="byName"/>
+
+	<beans profile="default,storage.memory">
+
+		<bean name="debugStorage"  class="nl.nn.testtool.storage.memory.Storage" autowire="byName">
+			<property name="name" value="Debug"/>
+		</bean>
+
+		<bean name="testStorage" class="nl.nn.testtool.storage.memory.Storage" autowire="byName">
+			<property name="name" value="Test"/>
+		</bean>
+
+	</beans>
+
+	<beans profile="storage.file">
+
+		<bean name="debugStorage" class="nl.nn.testtool.storage.file.Storage" autowire="byName" init-method="init">
+			<property name="name" value="Logging"/>
+			<property name="reportsFilename" value="../ibis-ladybug/logs/testtool4testtooltest.tts"/>
+			<property name="metadataFilename" value="../ibis-ladybug/logs/testtool4testtooltest.ttm"/>
+			<property name="persistentMetadata">
+				<list>
+					<value>storageId</value>
+					<value>storageSize</value>
+					<value>endTime</value>
+					<value>duration</value>
+					<value>name</value>
+					<value>correlationId</value>
+					<value>status</value>
+					<value>numberOfCheckpoints</value>
+					<value>estimatedMemoryUsage</value>
+				</list>
+			</property>
+		</bean>
+
+		<bean name="testStorage" class="nl.nn.testtool.storage.xml.XmlStorage" autowire="byName" init-method="init">
+			<property name="name" value="Test"/>
+			<property name="reportsFolder" value="../ibis-ladybug-test-webapp/src/test/testtool"/>
+		</bean>
+
+	</beans>
 
 </beans>

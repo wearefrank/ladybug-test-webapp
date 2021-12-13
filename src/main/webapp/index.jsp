@@ -9,6 +9,10 @@ ServletContext servletContext = request.getSession().getServletContext();
 WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(servletContext);
 TestTool testTool = (TestTool)webApplicationContext.getBean("testTool");
 String correlationId = UUID.randomUUID().toString();
+if ("simple".equals(request.getParameter("createReport"))) {
+	testTool.startpoint(correlationId, "sourceClassName", "name", "start");
+	testTool.endpoint(correlationId, "sourceClassName", "name", "end");
+}
 if ("waitingForThread".equals(request.getParameter("createReportInProgress"))) {
 	testTool.startpoint(correlationId, "sourceClassName", "name", "message");
 	testTool.threadCreatepoint(correlationId, "123");
@@ -43,6 +47,8 @@ if ("waitingForStream".equals(request.getParameter("createReportInProgress"))) {
   <a href="https://github.com/ibissource/ibis-ladybug/tree/master/src/main/java/nl/nn/testtool/web/api">More API info</a>
 
   <br/>
+  <br/>
+  <a href="index.jsp?createReport=simple">Create a simple report...</a>
   <br/>
   <a href="index.jsp?createReportInProgress=waitingForThread">Create report in progress with Waiting for thread '123' to start...</a>
   <br/>
