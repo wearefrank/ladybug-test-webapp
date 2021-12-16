@@ -9,9 +9,15 @@ ServletContext servletContext = request.getSession().getServletContext();
 WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(servletContext);
 TestTool testTool = (TestTool)webApplicationContext.getBean("testTool");
 String correlationId = UUID.randomUUID().toString();
+String otherCorrelationId = UUID.randomUUID().toString();
+
 if ("simple".equals(request.getParameter("createReport"))) {
 	testTool.startpoint(correlationId, "sourceClassName", "name", "start");
 	testTool.endpoint(correlationId, "sourceClassName", "name", "end");
+}
+if ("otherSimple".equals(request.getParameter("createReport"))) {
+	testTool.startpoint(otherCorrelationId, "sourceClassName", "otherName", "start");
+	testTool.endpoint(otherCorrelationId, "sourceClassName", "otherName", "end");
 }
 if ("waitingForThread".equals(request.getParameter("createReportInProgress"))) {
 	testTool.startpoint(correlationId, "sourceClassName", "name", "message");
@@ -48,7 +54,9 @@ if ("waitingForStream".equals(request.getParameter("createReportInProgress"))) {
 
   <br/>
   <br/>
-  <a href="index.jsp?createReport=simple">Create a simple report...</a>
+  <a href="index.jsp?createReport=simple">Create a simple report</a>
+  <br/>
+  <a href="index.jsp?createReport=otherSimple">Create another simple report</a>
   <br/>
   <a href="index.jsp?createReportInProgress=waitingForThread">Create report in progress with Waiting for thread '123' to start...</a>
   <br/>
