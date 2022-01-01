@@ -1,5 +1,6 @@
 <%@ page import="nl.nn.testtool.TestTool"%>
 <%@ page import="nl.nn.testtool.MessageEncoderImpl"%>
+<%@ page import="nl.nn.testtool.storage.LogStorage"%>
 <%@ page import="org.springframework.web.context.WebApplicationContext"%>
 <%@ page import="org.springframework.web.context.support.WebApplicationContextUtils"%>
 <%@ page import="java.util.UUID"%>
@@ -25,6 +26,10 @@ if ("waitingForThread".equals(request.getParameter("createReportInProgress"))) {
 }
 if ("waitingForStream".equals(request.getParameter("createReportInProgress"))) {
 	testTool.startpoint(correlationId, "sourceClassName", "name", new ByteArrayInputStream(new byte[0]));
+}
+if ("true".equals(request.getParameter("clearDebugStorage"))) {
+	LogStorage debugStorage = (LogStorage)webApplicationContext.getBean("debugStorage");
+	debugStorage.clear();
 }
 %>
 <html>
@@ -61,4 +66,6 @@ if ("waitingForStream".equals(request.getParameter("createReportInProgress"))) {
   <a href="index.jsp?createReportInProgress=waitingForThread">Create report in progress with Waiting for thread '123' to start...</a>
   <br/>
   <a href="index.jsp?createReportInProgress=waitingForStream">Create report in progress with <%=MessageEncoderImpl.WAITING_FOR_STREAM_MESSAGE%></a>
+  <br/>
+  <a href="index.jsp?clearDebugStorage=true">Clear debug storage</a>
 </html>
