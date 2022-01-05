@@ -13,12 +13,12 @@ String correlationId = UUID.randomUUID().toString();
 String otherCorrelationId = UUID.randomUUID().toString();
 
 if ("simple".equals(request.getParameter("createReport"))) {
-	testTool.startpoint(correlationId, "sourceClassName", "name", "start");
-	testTool.endpoint(correlationId, "sourceClassName", "name", "end");
+	testTool.startpoint(correlationId, "sourceClassName", "name", "Hello World!");
+	testTool.endpoint(correlationId, "sourceClassName", "name", "Goodbye World!");
 }
 if ("otherSimple".equals(request.getParameter("createReport"))) {
-	testTool.startpoint(otherCorrelationId, "sourceClassName", "otherName", "start");
-	testTool.endpoint(otherCorrelationId, "sourceClassName", "otherName", "end");
+	testTool.startpoint(otherCorrelationId, "sourceClassName", "otherName", "Hello World!");
+	testTool.endpoint(otherCorrelationId, "sourceClassName", "otherName", "Goodbye World!");
 }
 if ("waitingForThread".equals(request.getParameter("createReportInProgress"))) {
 	testTool.startpoint(correlationId, "sourceClassName", "name", "message");
