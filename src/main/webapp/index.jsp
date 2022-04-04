@@ -5,6 +5,8 @@
 <%@ page import="org.springframework.web.context.support.WebApplicationContextUtils"%>
 <%@ page import="java.util.UUID"%>
 <%@ page import="java.io.ByteArrayInputStream"%>
+<%@ page import="java.io.Writer" %>
+<%@ page import="java.io.StringWriter" %>
 <%
 ServletContext servletContext = request.getSession().getServletContext();
 WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(servletContext);
@@ -31,6 +33,23 @@ if ("true".equals(request.getParameter("clearDebugStorage"))) {
 	LogStorage debugStorage = (LogStorage)webApplicationContext.getBean("debugStorage");
 	debugStorage.clear();
 }
+  if ("messageCaptured".equals(request.getParameter("createReport"))) {
+    testTool.setCloseMessageCapturers(true);
+    testTool.setCloseThreads(true);
+    testTool.startpoint(correlationId, "sourceClassName", "name", "Hello World!");
+    Writer writerMessage = testTool.inputpoint(correlationId, "sourceClassName", "writer", new StringWriter());
+    writerMessage.write("Passing by the world!");
+    testTool.endpoint(correlationId, "sourceClassName", "name", "Goodbye World!");
+    testTool.close(correlationId);
+    writerMessage.close();
+  }
+  if ("messageLabels".equals(request.getParameter("createReport"))) {
+    testTool.startpoint(correlationId, "sourceClassName", "startpoint", "Hello World!");
+    testTool.infopoint(correlationId, "sourceClassName", "Empty String", "");
+    testTool.infopoint(correlationId, "sourceClassName", "Null String", null);
+    testTool.setMessageEncoder(testTool.getMessageEncoder());
+    testTool.endpoint(correlationId, "sourceClassName", "endpoint", "Goodbye World!");
+  }
 %>
 <html>
   <a href="testtool">Old Echo2 GUI</a><br/>
@@ -53,6 +72,8 @@ if ("true".equals(request.getParameter("clearDebugStorage"))) {
   <br/>
   <a href="index.jsp?createReport=simple">Create a simple report</a><br/>
   <a href="index.jsp?createReport=otherSimple">Create another simple report</a><br/>
+  <a href="index.jsp?createReport=messageCaptured">Create message captured report</a><br/>
+  <a href="index.jsp?createReport=messageLabels">Create message with extra labels</a><br/>
   <a href="index.jsp?createReportInProgress=waitingForThread">Create report in progress with Waiting for thread '123' to start...</a><br/>
   <a href="index.jsp?createReportInProgress=waitingForStream">Create report in progress with <%=MessageEncoderImpl.WAITING_FOR_STREAM_MESSAGE%></a><br/>
   <a href="index.jsp?clearDebugStorage=true">Clear debug storage</a><br/>
@@ -93,8 +114,8 @@ if ("true".equals(request.getParameter("clearDebugStorage"))) {
   MaxCheckpoints: <%= testTool.getMaxCheckpoints() %><br/>
   MaxMemoryUsage: <%= testTool.getMaxMemoryUsage() %><br/>
   MaxMessageLength: <%= testTool.getMaxMessageLength() %><br/>
-  
-  
+
+
 
   <br/>
   MessageTransformer: <%= testTool.getMessageTransformer() %><br/>
