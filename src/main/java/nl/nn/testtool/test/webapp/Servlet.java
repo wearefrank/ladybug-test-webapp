@@ -32,17 +32,19 @@ import nl.nn.testtool.echo2.Echo2Application;
 public class Servlet extends WebContainerServlet {
 	private static final long serialVersionUID = 1L;
 	private WebApplicationContext webApplicationContext;
+	ClassPathXmlApplicationContext applicationContext;
 
+	@Override
 	public void init(ServletConfig servletConfig) throws ServletException {
 		super.init(servletConfig);
 		webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(servletConfig.getServletContext());
 	}
 
+	@Override
 	public ApplicationInstance newApplicationInstance() {
 		if (webApplicationContext == null) {
 			// Fall back to ClassPathXmlApplicationContext depending on the
 			// presents of ContextLoaderListener in web.xml
-			ClassPathXmlApplicationContext applicationContext;
 			applicationContext = new ClassPathXmlApplicationContext("springTestToolTestWebapp.xml");
 			return (Echo2Application)applicationContext.getBean("echo2Application");
 		} else {
@@ -50,4 +52,11 @@ public class Servlet extends WebContainerServlet {
 		}
 	}
 
+	@Override
+	public void destroy() {
+		if (applicationContext != null) {
+			applicationContext.close();
+		}
+		super.destroy();
+	}
 }

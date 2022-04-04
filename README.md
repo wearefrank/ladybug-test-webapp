@@ -1,6 +1,5 @@
-WeAreFrank! Ladybug test webapp
-===============================
+Ladybug test webapp
+===================
 
-Simple vanilla webapp to test Ladybug.
-[Frank!Runner](https://github.com/ibissource/frank-runner)
-(frank-runner/specials/ibis-ladybug/build.xml) can be used to run it.
+Simple vanilla webapp to test Ladybug. See https://github.com/ibissource/ibis-ladybug for it's place in the Ladybug
+ecosystem
