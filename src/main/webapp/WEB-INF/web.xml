@@ -1,22 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
+		 xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+		 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+		 id="WebApp_ID" version="3.0">
 
 	<display-name>TestTool</display-name>
 
 	<!--
-	When this listener is omitted the webapp servlet will fall back to using
-	ClassPathXmlApplicationContext. In which case Tomcat will start faster as it
-	will wait loading the Spring config until a user makes a request to the
-	servlet.
-	-->
-	<!--listener>
+    When this listener is omitted the webapp servlet will fall back to using
+    ClassPathXmlApplicationContext. In which case Tomcat will start faster as it
+    will wait loading the Spring config until a user makes a request to the
+    servlet.
+    -->
+	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener-->
+	</listener>
 
 	<servlet>
 		<servlet-name>TestToolServlet</servlet-name>
 		<servlet-class>nl.nn.testtool.test.webapp.Servlet</servlet-class>
 	</servlet>
+
+	<listener>
+		<listener-class>
+			nl.nn.testtool.web.ServletListener
+		</listener-class>
+	</listener>
 
 	<servlet-mapping>
 		<servlet-name>TestToolServlet</servlet-name>
