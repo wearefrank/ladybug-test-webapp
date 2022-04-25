@@ -43,13 +43,19 @@ if ("true".equals(request.getParameter("clearDebugStorage"))) {
     testTool.close(correlationId);
     writerMessage.close();
   }
-  if ("messageLabels".equals(request.getParameter("createReport"))) {
-    testTool.startpoint(correlationId, "sourceClassName", "startpoint", "Hello World!");
-    testTool.infopoint(correlationId, "sourceClassName", "Empty String", "");
+  if ("messageLabelNull".equals(request.getParameter("createReport"))) {
+    testTool.startpoint(correlationId, "sourceClassName", "withLabelNull", "Hello World!");
     testTool.infopoint(correlationId, "sourceClassName", "Null String", null);
     testTool.setMessageEncoder(testTool.getMessageEncoder());
     testTool.endpoint(correlationId, "sourceClassName", "endpoint", "Goodbye World!");
   }
+  if ("messageLabelEmptyString".equals(request.getParameter("createReport"))) {
+    testTool.startpoint(correlationId, "sourceClassName", "withLabelEmptyString", "Hello World!");
+    testTool.infopoint(correlationId, "sourceClassName", "Empty String", "");
+    testTool.setMessageEncoder(testTool.getMessageEncoder());
+    testTool.endpoint(correlationId, "sourceClassName", "endpoint", "Goodbye World!");
+  }
+
 %>
 <html>
   <a href="testtool">Old Echo2 GUI</a><br/>
@@ -73,7 +79,8 @@ if ("true".equals(request.getParameter("clearDebugStorage"))) {
   <a href="index.jsp?createReport=simple">Create a simple report</a><br/>
   <a href="index.jsp?createReport=otherSimple">Create another simple report</a><br/>
   <a href="index.jsp?createReport=messageCaptured">Create message captured report</a><br/>
-  <a href="index.jsp?createReport=messageLabels">Create message with extra labels</a><br/>
+  <a href="index.jsp?createReport=messageLabelNull">Create message with extra label null</a><br/>
+  <a href="index.jsp?createReport=messageLabelEmptyString">Create message with extra label empty string</a><br/>
   <a href="index.jsp?createReportInProgress=waitingForThread">Create report in progress with Waiting for thread '123' to start...</a><br/>
   <a href="index.jsp?createReportInProgress=waitingForStream">Create report in progress with <%=MessageEncoderImpl.WAITING_FOR_STREAM_MESSAGE%></a><br/>
   <a href="index.jsp?clearDebugStorage=true">Clear debug storage</a><br/>
