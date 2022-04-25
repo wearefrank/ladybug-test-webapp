@@ -36,10 +36,10 @@ if ("true".equals(request.getParameter("clearDebugStorage"))) {
   if ("messageCaptured".equals(request.getParameter("createReport"))) {
     testTool.setCloseMessageCapturers(true);
     testTool.setCloseThreads(true);
-    testTool.startpoint(correlationId, "sourceClassName", "name", "Hello World!");
+    testTool.startpoint(correlationId, "sourceClassName", "captured", "Hello World!");
     Writer writerMessage = testTool.inputpoint(correlationId, "sourceClassName", "writer", new StringWriter());
     writerMessage.write("Passing by the world!");
-    testTool.endpoint(correlationId, "sourceClassName", "name", "Goodbye World!");
+    testTool.endpoint(correlationId, "sourceClassName", "captured", "Goodbye World!");
     testTool.close(correlationId);
     writerMessage.close();
   }
