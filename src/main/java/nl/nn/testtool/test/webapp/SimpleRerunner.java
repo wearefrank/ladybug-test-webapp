@@ -1,5 +1,7 @@
 package nl.nn.testtool.test.webapp;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import lombok.Setter;
@@ -16,6 +18,35 @@ public class SimpleRerunner implements Rerunner {
 	@Override
 	public String rerun(String correlationId, Report originalReport,
 			SecurityContext securityContext, ReportRunner reportRunner) {
+		if(! rerunSpecialReport(correlationId, originalReport, securityContext, reportRunner)) {
+			rerunDefault(correlationId, originalReport, securityContext, reportRunner);
+		}
+		return null;
+	}
+
+	/**
+	 * Rerun a report that we want to investigate in the ladybug-frontend Cypress tests.
+	 * For some reports, we want to edit them during the tests such that they will succeed
+	 * on rerun.
+	 * 
+	 * @param correlationId
+	 * @param originalReport
+	 * @param securityContext
+	 * @param reportRunner
+	 * @return
+	 */
+	private boolean rerunSpecialReport(String correlationId, Report originalReport,
+			SecurityContext securityContext, ReportRunner reportRunner) {
+		if(new HashSet<>(Arrays.asList("name", "otherName")).contains(originalReport.getName())) {
+			testTool.startpoint(correlationId, "sourceClassName", "name", "Hello Original World!");
+			testTool.endpoint(correlationId, "sourceClassName", "name", "Goodbye Original World!");
+			return true;
+		}
+		return false;
+	}
+
+	private void rerunDefault(String correlationId, Report originalReport,
+			SecurityContext securityContext, ReportRunner reportRunner) {
 		List<Checkpoint> checkpoints = originalReport.getCheckpoints();
 		String name = checkpoints.get(0).getName();
 		String message = checkpoints.get(0).getMessage();
@@ -27,7 +58,5 @@ public class SimpleRerunner implements Rerunner {
 		name = checkpoints.get(checkpoints.size() - 1).getName();
 		message = checkpoints.get(checkpoints.size() - 1).getMessage();
 		testTool.endpoint(correlationId, this.getClass().getName(), name, message);
-		return null;
 	}
-
 }
