@@ -185,7 +185,7 @@
 	<bean name="reportsTreeCellRenderer" class="nl.nn.testtool.echo2.reports.ReportsTreeCellRenderer"/>
 
 	<bean name="reportXmlTransformer" class="nl.nn.testtool.transform.ReportXmlTransformer">
-		<property name="xsltResource" value="nl/nn/testtool/test/junit/transformReport.xslt"/>
+		<property name="xsltResource" value="transformReport.xslt"/>
 	</bean>
 
 	<bean name="rerunner" class="nl.nn.testtool.test.webapp.SimpleRerunner" autowire="byName"/>
