@@ -8,54 +8,57 @@
 <%@ page import="java.io.Writer" %>
 <%@ page import="java.io.StringWriter" %>
 <%
-ServletContext servletContext = request.getSession().getServletContext();
-WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(servletContext);
-TestTool testTool = (TestTool)webApplicationContext.getBean("testTool");
-String correlationId = UUID.randomUUID().toString();
-String otherCorrelationId = UUID.randomUUID().toString();
-
-if ("simple".equals(request.getParameter("createReport"))) {
-	testTool.startpoint(correlationId, "sourceClassName", "name", "Hello World!");
-	testTool.endpoint(correlationId, "sourceClassName", "name", "Goodbye World!");
-}
-if ("otherSimple".equals(request.getParameter("createReport"))) {
-	testTool.startpoint(otherCorrelationId, "sourceClassName", "otherName", "Hello World!");
-	testTool.endpoint(otherCorrelationId, "sourceClassName", "otherName", "Goodbye World!");
-}
-if ("waitingForThread".equals(request.getParameter("createReportInProgress"))) {
-	testTool.startpoint(correlationId, "sourceClassName", "name", "message");
-	testTool.threadCreatepoint(correlationId, "123");
-}
-if ("waitingForStream".equals(request.getParameter("createReportInProgress"))) {
-	testTool.startpoint(correlationId, "sourceClassName", "name", new ByteArrayInputStream(new byte[0]));
-}
-if ("true".equals(request.getParameter("clearDebugStorage"))) {
-	LogStorage debugStorage = (LogStorage)webApplicationContext.getBean("debugStorage");
-	debugStorage.clear();
-}
-  if ("messageCaptured".equals(request.getParameter("createReport"))) {
-    testTool.setCloseMessageCapturers(true);
-    testTool.setCloseThreads(true);
-    testTool.startpoint(correlationId, "sourceClassName", "captured", "Hello World!");
-    Writer writerMessage = testTool.inputpoint(correlationId, "sourceClassName", "writer", new StringWriter());
-    writerMessage.write("Passing by the world!");
-    testTool.endpoint(correlationId, "sourceClassName", "captured", "Goodbye World!");
-    testTool.close(correlationId);
-    writerMessage.close();
-  }
-  if ("messageLabelNull".equals(request.getParameter("createReport"))) {
-    testTool.startpoint(correlationId, "sourceClassName", "withLabelNull", "Hello World!");
-    testTool.infopoint(correlationId, "sourceClassName", "Null String", null);
-    testTool.setMessageEncoder(testTool.getMessageEncoder());
-    testTool.endpoint(correlationId, "sourceClassName", "endpoint", "Goodbye World!");
-  }
-  if ("messageLabelEmptyString".equals(request.getParameter("createReport"))) {
-    testTool.startpoint(correlationId, "sourceClassName", "withLabelEmptyString", "Hello World!");
-    testTool.infopoint(correlationId, "sourceClassName", "Empty String", "");
-    testTool.setMessageEncoder(testTool.getMessageEncoder());
-    testTool.endpoint(correlationId, "sourceClassName", "endpoint", "Goodbye World!");
-  }
-
+	ServletContext servletContext = request.getSession().getServletContext();
+	WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(servletContext);
+	TestTool testTool = (TestTool)webApplicationContext.getBean("testTool");
+	String correlationId = UUID.randomUUID().toString();
+	String otherCorrelationId = UUID.randomUUID().toString();
+	
+	if ("simple".equals(request.getParameter("createReport"))) {
+		testTool.startpoint(correlationId, "sourceClassName", "name", "Hello World!");
+		testTool.endpoint(correlationId, "sourceClassName", "name", "Goodbye World!");
+	}
+	if ("otherSimple".equals(request.getParameter("createReport"))) {
+		testTool.startpoint(otherCorrelationId, "sourceClassName", "otherName", "Hello World!");
+		testTool.endpoint(otherCorrelationId, "sourceClassName", "otherName", "Goodbye World!");
+	}
+	if ("messageCaptured".equals(request.getParameter("createReport"))) {
+		testTool.setCloseMessageCapturers(true);
+		testTool.setCloseThreads(true);
+		testTool.startpoint(correlationId, "sourceClassName", "captured", "Hello World!");
+		Writer writerMessage = testTool.inputpoint(correlationId, "sourceClassName", "writer", new StringWriter());
+		writerMessage.write("Passing by the world!");
+		testTool.endpoint(correlationId, "sourceClassName", "captured", "Goodbye World!");
+		testTool.close(correlationId);
+		writerMessage.close();
+	}
+	if ("messageLabelNull".equals(request.getParameter("createReport"))) {
+		testTool.startpoint(correlationId, "sourceClassName", "withLabelNull", "Hello World!");
+		testTool.infopoint(correlationId, "sourceClassName", "Null String", null);
+		testTool.setMessageEncoder(testTool.getMessageEncoder());
+		testTool.endpoint(correlationId, "sourceClassName", "endpoint", "Goodbye World!");
+	}
+	if ("messageLabelEmptyString".equals(request.getParameter("createReport"))) {
+		testTool.startpoint(correlationId, "sourceClassName", "withLabelEmptyString", "Hello World!");
+		testTool.infopoint(correlationId, "sourceClassName", "Empty String", "");
+		testTool.setMessageEncoder(testTool.getMessageEncoder());
+		testTool.endpoint(correlationId, "sourceClassName", "endpoint", "Goodbye World!");
+	}
+	if ("waitingForThread".equals(request.getParameter("createReportInProgress"))) {
+		testTool.startpoint(correlationId, "sourceClassName", "name", "message");
+		testTool.threadCreatepoint(correlationId, "123");
+	}
+	if ("waitingForStream".equals(request.getParameter("createReportInProgress"))) {
+		testTool.startpoint(correlationId, "sourceClassName", "name", new ByteArrayInputStream(new byte[0]));
+	}
+	if ("true".equals(request.getParameter("clearDebugStorage"))) {
+		LogStorage debugStorage = (LogStorage)webApplicationContext.getBean("debugStorage");
+		debugStorage.clear();
+	}
+	if (request.getParameter("removeReportInProgress") != null) {
+		int nr = Integer.valueOf(request.getParameter("removeReportInProgress"));
+		testTool.removeReportInProgress(nr -1);
+	}
 %>
 <html>
   <a href="testtool">Old Echo2 GUI</a><br/>
@@ -84,6 +87,7 @@ if ("true".equals(request.getParameter("clearDebugStorage"))) {
   <a href="index.jsp?createReportInProgress=waitingForThread">Create report in progress with Waiting for thread '123' to start...</a><br/>
   <a href="index.jsp?createReportInProgress=waitingForStream">Create report in progress with <%=MessageEncoderImpl.WAITING_FOR_STREAM_MESSAGE%></a><br/>
   <a href="index.jsp?clearDebugStorage=true">Clear debug storage</a><br/>
+  <a href="index.jsp?removeReportInProgress=1">Remove report in progress number 1</a><br/>
 
   <br/>
   Name: <%= testTool.getName() %><br/>
