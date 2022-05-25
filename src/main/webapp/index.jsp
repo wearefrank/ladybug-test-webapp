@@ -1,3 +1,4 @@
+<%@page import="java.util.Arrays"%>
 <%@ page import="nl.nn.testtool.TestTool"%>
 <%@ page import="nl.nn.testtool.MessageEncoderImpl"%>
 <%@ page import="nl.nn.testtool.storage.LogStorage"%>
@@ -44,6 +45,31 @@
 		testTool.setMessageEncoder(testTool.getMessageEncoder());
 		testTool.endpoint(correlationId, "sourceClassName", "endpoint", "Goodbye World!");
 	}
+	if ("messageLabelBase64".equals(request.getParameter("createReport"))) {
+		String reportName = "Message with extra label Base64 encoded (with and without decoded to UTF-8)";
+		byte[] message = new byte[6];
+		// Two bytes for ë in UTF-8
+		message[0] = (byte)195;
+		message[1] = (byte)171;
+		// Two bytes for © in UTF-8
+		message[2] = (byte)194;
+		message[3] = (byte)169;
+		// One byte for ë in ISO-8859-1
+		message[4] = (byte)235;
+		// One byte for © in ISO-8859-1
+		message[5] = (byte)169;
+		// The last two bytes cannot be encoded in UTF-8 so Ladybug will use Base64 instead
+		testTool.startpoint(correlationId, null, reportName, message);
+		// Remove last two bytes so message can be encoded using UTF-8 by Ladybug
+		message = Arrays.copyOf(message, 4);
+		testTool.infopoint(correlationId, null, reportName, message);
+		// Test Unicode supplementary characters with a smiley :)
+		message[0] = (byte)240;
+		message[1] = (byte)159;
+		message[2] = (byte)152;
+		message[3] = (byte)138;
+		testTool.endpoint(correlationId, null, reportName, message);
+	}
 	if ("waitingForThread".equals(request.getParameter("createReportInProgress"))) {
 		testTool.startpoint(correlationId, "sourceClassName", "name", "message");
 		testTool.threadCreatepoint(correlationId, "123");
@@ -84,6 +110,7 @@
   <a href="index.jsp?createReport=messageCaptured">Create message captured report</a><br/>
   <a href="index.jsp?createReport=messageLabelNull">Create message with extra label null</a><br/>
   <a href="index.jsp?createReport=messageLabelEmptyString">Create message with extra label empty string</a><br/>
+  <a href="index.jsp?createReport=messageLabelBase64">Create message with extra label Base64 encoded (with and without decoded to UTF-8)</a><br/>
   <a href="index.jsp?createReportInProgress=waitingForThread">Create report in progress with Waiting for thread '123' to start...</a><br/>
   <a href="index.jsp?createReportInProgress=waitingForStream">Create report in progress with <%=MessageEncoderImpl.WAITING_FOR_STREAM_MESSAGE%></a><br/>
   <a href="index.jsp?clearDebugStorage=true">Clear debug storage</a><br/>
@@ -137,4 +164,8 @@
 
   <br/>
   SecurityLog: <%= testTool.getSecurityLog() %><br/>
+
+  <br/>
+  Default charset: <%= java.nio.charset.Charset.defaultCharset() %><br/>
+  File encoding: <%= System.getProperty("file.encoding") %><br/>
 </html>
