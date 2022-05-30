@@ -16,34 +16,34 @@
 	String otherCorrelationId = UUID.randomUUID().toString();
 	
 	if ("simple".equals(request.getParameter("createReport"))) {
-		testTool.startpoint(correlationId, "sourceClassName", "name", "Hello World!");
-		testTool.endpoint(correlationId, "sourceClassName", "name", "Goodbye World!");
+		testTool.startpoint(correlationId, null, "name", "Hello World!");
+		testTool.endpoint(correlationId, null, "name", "Goodbye World!");
 	}
 	if ("otherSimple".equals(request.getParameter("createReport"))) {
-		testTool.startpoint(otherCorrelationId, "sourceClassName", "otherName", "Hello World!");
-		testTool.endpoint(otherCorrelationId, "sourceClassName", "otherName", "Goodbye World!");
+		testTool.startpoint(otherCorrelationId, null, "otherName", "Hello World!");
+		testTool.endpoint(otherCorrelationId, null, "otherName", "Goodbye World!");
 	}
 	if ("messageCaptured".equals(request.getParameter("createReport"))) {
 		testTool.setCloseMessageCapturers(true);
 		testTool.setCloseThreads(true);
-		testTool.startpoint(correlationId, "sourceClassName", "captured", "Hello World!");
-		Writer writerMessage = testTool.inputpoint(correlationId, "sourceClassName", "writer", new StringWriter());
+		testTool.startpoint(correlationId, null, "captured", "Hello World!");
+		Writer writerMessage = testTool.inputpoint(correlationId, null, "writer", new StringWriter());
 		writerMessage.write("Passing by the world!");
-		testTool.endpoint(correlationId, "sourceClassName", "captured", "Goodbye World!");
+		testTool.endpoint(correlationId, null, "captured", "Goodbye World!");
 		testTool.close(correlationId);
 		writerMessage.close();
 	}
 	if ("messageLabelNull".equals(request.getParameter("createReport"))) {
-		testTool.startpoint(correlationId, "sourceClassName", "withLabelNull", "Hello World!");
-		testTool.infopoint(correlationId, "sourceClassName", "Null String", null);
+		testTool.startpoint(correlationId, null, "withLabelNull", "Hello World!");
+		testTool.infopoint(correlationId, null, "Null String", null);
 		testTool.setMessageEncoder(testTool.getMessageEncoder());
-		testTool.endpoint(correlationId, "sourceClassName", "endpoint", "Goodbye World!");
+		testTool.endpoint(correlationId, null, "endpoint", "Goodbye World!");
 	}
 	if ("messageLabelEmptyString".equals(request.getParameter("createReport"))) {
-		testTool.startpoint(correlationId, "sourceClassName", "withLabelEmptyString", "Hello World!");
-		testTool.infopoint(correlationId, "sourceClassName", "Empty String", "");
+		testTool.startpoint(correlationId, null, "withLabelEmptyString", "Hello World!");
+		testTool.infopoint(correlationId, null, "Empty String", "");
 		testTool.setMessageEncoder(testTool.getMessageEncoder());
-		testTool.endpoint(correlationId, "sourceClassName", "endpoint", "Goodbye World!");
+		testTool.endpoint(correlationId, null, "endpoint", "Goodbye World!");
 	}
 	if ("messageLabelBase64".equals(request.getParameter("createReport"))) {
 		String reportName = "Message with extra label Base64 encoded (with and without decoded to UTF-8)";
@@ -71,11 +71,11 @@
 		testTool.endpoint(correlationId, null, reportName, message);
 	}
 	if ("waitingForThread".equals(request.getParameter("createReportInProgress"))) {
-		testTool.startpoint(correlationId, "sourceClassName", "name", "message");
+		testTool.startpoint(correlationId, null, "name", "message");
 		testTool.threadCreatepoint(correlationId, "123");
 	}
 	if ("waitingForStream".equals(request.getParameter("createReportInProgress"))) {
-		testTool.startpoint(correlationId, "sourceClassName", "name", new ByteArrayInputStream(new byte[0]));
+		testTool.startpoint(correlationId, null, "name", new ByteArrayInputStream(new byte[0]));
 	}
 	if ("true".equals(request.getParameter("clearDebugStorage"))) {
 		LogStorage debugStorage = (LogStorage)webApplicationContext.getBean("debugStorage");
