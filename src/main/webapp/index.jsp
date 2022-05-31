@@ -1,11 +1,9 @@
+<%@page import="java.util.Arrays"%>
 <%@ page import="nl.nn.testtool.TestTool"%>
 <%@ page import="nl.nn.testtool.MessageEncoderImpl"%>
 <%@ page import="nl.nn.testtool.storage.LogStorage"%>
 <%@ page import="org.springframework.web.context.WebApplicationContext"%>
 <%@ page import="org.springframework.web.context.support.WebApplicationContextUtils"%>
-<%@ page import="java.util.ArrayList"%>
-<%@ page import="java.util.Arrays"%>
-<%@ page import="java.util.List"%>
 <%@ page import="java.util.UUID"%>
 <%@ page import="java.io.ByteArrayInputStream"%>
 <%@ page import="java.io.Writer" %>
@@ -16,48 +14,39 @@
 	TestTool testTool = (TestTool)webApplicationContext.getBean("testTool");
 	String correlationId = UUID.randomUUID().toString();
 	String otherCorrelationId = UUID.randomUUID().toString();
-	String reportName;
-	List<String> reportNames = new ArrayList<String>();
-
-	// Create report links
-	String createReportAction = request.getParameter("createReport");
-	reportNames.add(reportName = "Simple report");
-	if (reportName.equals(createReportAction)) {
-		testTool.startpoint(correlationId, null, reportName, "Hello World!");
-		testTool.endpoint(correlationId, null, reportName, "Goodbye World!");
+	
+	if ("simple".equals(request.getParameter("createReport"))) {
+		testTool.startpoint(correlationId, null, "name", "Hello World!");
+		testTool.endpoint(correlationId, null, "name", "Goodbye World!");
 	}
-	reportNames.add(reportName = "Another simple report");
-	if (reportName.equals(createReportAction)) {
-		testTool.startpoint(otherCorrelationId, null, reportName, "Hello World!");
-		testTool.endpoint(otherCorrelationId, null, reportName, "Goodbye World!");
+	if ("otherSimple".equals(request.getParameter("createReport"))) {
+		testTool.startpoint(otherCorrelationId, null, "otherName", "Hello World!");
+		testTool.endpoint(otherCorrelationId, null, "otherName", "Goodbye World!");
 	}
-	reportNames.add(reportName = "Message is captured asynchronously from a character stream");
-	if (reportName.equals(createReportAction)) {
+	if ("messageCaptured".equals(request.getParameter("createReport"))) {
 		testTool.setCloseMessageCapturers(true);
 		testTool.setCloseThreads(true);
-		testTool.startpoint(correlationId, null, reportName, "Hello World!");
+		testTool.startpoint(correlationId, null, "captured", "Hello World!");
 		Writer writerMessage = testTool.inputpoint(correlationId, null, "writer", new StringWriter());
 		writerMessage.write("Passing by the world!");
-		testTool.endpoint(correlationId, null, reportName, "Goodbye World!");
+		testTool.endpoint(correlationId, null, "captured", "Goodbye World!");
 		testTool.close(correlationId);
 		writerMessage.close();
 	}
-	reportNames.add(reportName = "Message is null");
-	if (reportName.equals(createReportAction)) {
-		testTool.startpoint(correlationId, null, reportName, "Hello World!");
+	if ("messageLabelNull".equals(request.getParameter("createReport"))) {
+		testTool.startpoint(correlationId, null, "withLabelNull", "Hello World!");
 		testTool.infopoint(correlationId, null, "Null String", null);
 		testTool.setMessageEncoder(testTool.getMessageEncoder());
-		testTool.endpoint(correlationId, null, reportName, "Goodbye World!");
+		testTool.endpoint(correlationId, null, "endpoint", "Goodbye World!");
 	}
-	reportNames.add(reportName = "Message is an empty string");
-	if (reportName.equals(createReportAction)) {
-		testTool.startpoint(correlationId, null, reportName, "Hello World!");
+	if ("messageLabelEmptyString".equals(request.getParameter("createReport"))) {
+		testTool.startpoint(correlationId, null, "withLabelEmptyString", "Hello World!");
 		testTool.infopoint(correlationId, null, "Empty String", "");
 		testTool.setMessageEncoder(testTool.getMessageEncoder());
-		testTool.endpoint(correlationId, null, reportName, "Goodbye World!");
+		testTool.endpoint(correlationId, null, "endpoint", "Goodbye World!");
 	}
-	reportNames.add(reportName = "Message encoded using Base64");
-	if (reportName.equals(createReportAction)) {
+	if ("messageLabelBase64".equals(request.getParameter("createReport"))) {
+		String reportName = "Message with extra label Base64 encoded (with and without decoded to UTF-8)";
 		byte[] message = new byte[6];
 		// Two bytes for ë in UTF-8
 		message[0] = (byte)195;
@@ -81,17 +70,13 @@
 		message[3] = (byte)138;
 		testTool.endpoint(correlationId, null, reportName, message);
 	}
-	reportNames.add(reportName = "Waiting for thread to start");
-	if (reportName.equals(createReportAction)) {
-		testTool.startpoint(correlationId, null, reportName, "message");
+	if ("waitingForThread".equals(request.getParameter("createReportInProgress"))) {
+		testTool.startpoint(correlationId, null, "name", "message");
 		testTool.threadCreatepoint(correlationId, "123");
 	}
-	reportNames.add(reportName = "Waiting for message to be captured");
-	if (reportName.equals(createReportAction)) {
-		testTool.startpoint(correlationId, null, reportName, new ByteArrayInputStream(new byte[0]));
+	if ("waitingForStream".equals(request.getParameter("createReportInProgress"))) {
+		testTool.startpoint(correlationId, null, "name", new ByteArrayInputStream(new byte[0]));
 	}
-
-	// Other actions
 	if ("true".equals(request.getParameter("clearDebugStorage"))) {
 		LogStorage debugStorage = (LogStorage)webApplicationContext.getBean("debugStorage");
 		debugStorage.clear();
@@ -102,46 +87,36 @@
 	}
 %>
 <html>
-
-  <h1>Browse</h1>
-
   <a href="testtool">Old Echo2 GUI</a><br/>
 
   <br/>
-
   <a href="ladybug">New Angular GUI</a><br/>
   <a href="http://localhost:4200">New Angular GUI using Node.js</a><br/>
 
   <br/>
-
   <a href="ladybug/api/testtool">TestTool API</a><br/>
   <a href="http://localhost:4200/api/testtool">TestTool API proxied by Node.js</a><br/>
 
   <br/>
-
   <a href="ladybug/api/metadata">Metadata API</a><br/>
   <a href="http://localhost:4200/api/metadata">Metadata API proxied by Node.js</a><br/>
 
   <br/>
-
   <a href="https://github.com/ibissource/ibis-ladybug/tree/master/src/main/java/nl/nn/testtool/web/api">More API info</a><br/>
 
-
-  <h1>Create report</h1>
-
-  <% for (String name : reportNames) { %>
-  <a href="index.jsp?createReport=<%=name%>"><%=name%></a><br/>
-  <% } %>
-
-
-  <h1>Other actions</h1>
-
+  <br/>
+  <a href="index.jsp?createReport=simple">Create a simple report</a><br/>
+  <a href="index.jsp?createReport=otherSimple">Create another simple report</a><br/>
+  <a href="index.jsp?createReport=messageCaptured">Create message captured report</a><br/>
+  <a href="index.jsp?createReport=messageLabelNull">Create message with extra label null</a><br/>
+  <a href="index.jsp?createReport=messageLabelEmptyString">Create message with extra label empty string</a><br/>
+  <a href="index.jsp?createReport=messageLabelBase64">Create message with extra label Base64 encoded (with and without decoded to UTF-8)</a><br/>
+  <a href="index.jsp?createReportInProgress=waitingForThread">Create report in progress with Waiting for thread '123' to start...</a><br/>
+  <a href="index.jsp?createReportInProgress=waitingForStream">Create report in progress with <%=MessageEncoderImpl.WAITING_FOR_STREAM_MESSAGE%></a><br/>
   <a href="index.jsp?clearDebugStorage=true">Clear debug storage</a><br/>
   <a href="index.jsp?removeReportInProgress=1">Remove report in progress number 1</a><br/>
 
-
-  <h1>Debug info</h1>
-
+  <br/>
   Name: <%= testTool.getName() %><br/>
   Version: <%= testTool.getVersion() %><br/>
   SpecificationVersion: <%= testTool.getSpecificationVersion() %><br/>
@@ -150,42 +125,37 @@
   ConfigVersion: <%= testTool.getConfigVersion() %><br/>
 
   <br/>
-
   ReportGeneratorEnabled: <%= testTool.isReportGeneratorEnabled() %><br/>
   RegexFilter: <%= testTool.getRegexFilter() %><br/>
 
   <br/>
-
   NumberOfReportsInProgress: <%= testTool.getNumberOfReportsInProgress() %><br/>
   ReportsInProgressEstimatedMemoryUsage: <%= testTool.getReportsInProgressEstimatedMemoryUsage() %><br/>
 
   <br/>
-
   DebugStorage: <%= testTool.getDebugStorage() %><br/>
   DebugStorage size: <%= testTool.getDebugStorage().getSize() %><br/>
   TestStorage: <%= testTool.getTestStorage() %><br/>
   TestStorage size: <%= testTool.getTestStorage().getSize() %><br/>
 
   <br/>
-
   Debugger: <%= testTool.getDebugger() %><br/>
   Rerunner: <%= testTool.getRerunner() %><br/>
 
   <br/>
-
   Views: <%= testTool.getViews() %><br/>
   StubStrategies: <%= testTool.getStubStrategies() %><br/>
   DefaultStubStrategy: <%= testTool.getDefaultStubStrategy() %><br/>
   MatchingStubStrategiesForExternalConnectionCode: <%= testTool.getMatchingStubStrategiesForExternalConnectionCode() %><br/>
 
   <br/>
-
   MaxCheckpoints: <%= testTool.getMaxCheckpoints() %><br/>
   MaxMemoryUsage: <%= testTool.getMaxMemoryUsage() %><br/>
   MaxMessageLength: <%= testTool.getMaxMessageLength() %><br/>
 
-  <br/>
 
+
+  <br/>
   MessageTransformer: <%= testTool.getMessageTransformer() %><br/>
   MessageEncoder: <%= testTool.getMessageEncoder() %><br/>
   MessageCapturer: <%= testTool.getMessageCapturer() %><br/>
@@ -193,12 +163,9 @@
   CloseThreads: <%= testTool.isCloseThreads() %><br/>
 
   <br/>
-
   SecurityLog: <%= testTool.getSecurityLog() %><br/>
 
   <br/>
-
   Default charset: <%= java.nio.charset.Charset.defaultCharset() %><br/>
   File encoding: <%= System.getProperty("file.encoding") %><br/>
-
 </html>
