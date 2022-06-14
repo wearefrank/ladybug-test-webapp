@@ -52,12 +52,40 @@
 		</property>
 	</bean>
 
+	<!-- Demonstrate/test different list of columns for debug tab using a view -->
+	<bean name="nameOnlyView" class="nl.nn.testtool.filter.View" scope="prototype">
+		<property name="name" value="Report name only"/>
+		<property name="storage">
+			<ref bean="debugStorage"/>
+		</property>
+		<property name="metadataNames">
+			<list>
+				<value>name</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Demonstrate/test different storage for debug tab using a view -->
+	<bean name="jUnitView" class="nl.nn.testtool.filter.View" scope="prototype">
+		<property name="name" value="JUnit test results from Ladybug project"/>
+		<property name="storage">
+			<ref bean="jUnitStorage"/>
+		</property>
+		<property name="metadataNames">
+			<ref bean="whiteBoxViewMetadataNames"/>
+		</property>
+	</bean>
+
 	<bean name="views" class="nl.nn.testtool.filter.Views" scope="prototype">
 		<property name="views">
 			<list>
+				<ref bean="nameOnlyView"/>
 				<ref bean="whiteBoxView"/>
+				<ref bean="jUnitView"/>
 			</list>
 		</property>
+		<!-- Demonstrate/test setting default view to other than first view in the list  -->
+		<property name="defaultView" value="White box"/>
 	</bean>
 
 	<bean name="treePane" class="nl.nn.testtool.echo2.reports.TreePane" autowire="byName" init-method="initBean" scope="prototype"/>
@@ -190,6 +218,25 @@
 
 	<bean name="rerunner" class="nl.nn.testtool.test.webapp.SimpleRerunner" autowire="byName"/>
 
+	<bean name="jUnitStorage" class="nl.nn.testtool.storage.file.Storage" autowire="byName" init-method="init">
+		<property name="name" value="jUnit"/>
+		<property name="reportsFilename" value="../ibis-ladybug/logs/testtool4testtooltest.tts"/>
+		<property name="metadataFilename" value="../ibis-ladybug/logs/testtool4testtooltest.ttm"/>
+		<property name="persistentMetadata">
+			<list>
+				<value>storageId</value>
+				<value>storageSize</value>
+				<value>endTime</value>
+				<value>duration</value>
+				<value>name</value>
+				<value>correlationId</value>
+				<value>status</value>
+				<value>numberOfCheckpoints</value>
+				<value>estimatedMemoryUsage</value>
+			</list>
+		</property>
+	</bean>
+
 	<beans profile="default,storage.memory">
 
 		<bean name="debugStorage"  class="nl.nn.testtool.storage.memory.Storage" autowire="byName">
@@ -205,21 +252,23 @@
 	<beans profile="storage.file">
 
 		<bean name="debugStorage" class="nl.nn.testtool.storage.file.Storage" autowire="byName" init-method="init">
-			<property name="name" value="Logging"/>
-			<property name="reportsFilename" value="../ibis-ladybug/logs/testtool4testtooltest.tts"/>
-			<property name="metadataFilename" value="../ibis-ladybug/logs/testtool4testtooltest.ttm"/>
+			<property name="name" value="Debug"/>
+			<property name="reportsFilename" value="../ibis-ladybug-test-webapp/logs/testtool4testwebapp.tts"/>
+			<property name="metadataFilename" value="../ibis-ladybug-test-webapp/logs/testtool4testwebapp.ttm"/>
 			<property name="persistentMetadata">
 				<list>
 					<value>storageId</value>
 					<value>storageSize</value>
-					<value>endTime</value>
-					<value>duration</value>
 					<value>name</value>
 					<value>correlationId</value>
-					<value>status</value>
-					<value>numberOfCheckpoints</value>
+					<value>startTime</value>
+					<value>endTime</value>
 					<value>estimatedMemoryUsage</value>
+					<value>numberOfCheckpoints</value>
 				</list>
+			</property>
+			<property name="metadataExtractor">
+				<bean class="nl.nn.testtool.MetadataExtractor"/>
 			</property>
 		</bean>
 
