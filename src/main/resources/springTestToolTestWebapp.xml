@@ -60,6 +60,7 @@
 		</property>
 		<property name="metadataNames">
 			<list>
+				<value>storageId</value><!-- Without storageId the report cannot be opened -->
 				<value>name</value>
 			</list>
 		</property>
