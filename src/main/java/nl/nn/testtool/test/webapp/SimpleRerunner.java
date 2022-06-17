@@ -37,9 +37,9 @@ public class SimpleRerunner implements Rerunner {
 	 */
 	private boolean rerunSpecialReport(String correlationId, Report originalReport,
 			SecurityContext securityContext, ReportRunner reportRunner) {
-		if(new HashSet<>(Arrays.asList("name", "otherName")).contains(originalReport.getName())) {
-			testTool.startpoint(correlationId, null, "name", "Hello Original World!");
-			testTool.endpoint(correlationId, null, "name", "Goodbye Original World!");
+		if(new HashSet<>(Arrays.asList("Simple report", "Another simple report")).contains(originalReport.getName())) {
+			testTool.startpoint(correlationId, null, originalReport.getName(), "Hello Original World!");
+			testTool.endpoint(correlationId, null, originalReport.getName(), "Goodbye Original World!");
 			return true;
 		}
 		return false;
