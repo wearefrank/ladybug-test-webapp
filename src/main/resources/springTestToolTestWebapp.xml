@@ -259,8 +259,8 @@
 
 	<bean name="fileStorage" class="nl.nn.testtool.storage.file.Storage" autowire="byName" init-method="init">
 		<property name="name" value="fileStorage"/>
-		<property name="reportsFilename" value="../ibis-ladybug/logs/testtool4testtooltest.tts"/>
-		<property name="metadataFilename" value="../ibis-ladybug/logs/testtool4testtooltest.ttm"/>
+		<property name="reportsFilename" value="../ibis-ladybug/data/file-storage/ladybug.tts"/>
+		<property name="metadataFilename" value="../ibis-ladybug/data/file-storage/ladybug.ttm"/>
 		<property name="persistentMetadata">
 			<list>
 				<value>storageId</value>
