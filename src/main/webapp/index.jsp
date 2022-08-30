@@ -138,6 +138,7 @@
 
   <a href="index.jsp?clearDebugStorage=true">Clear debug storage</a><br/>
   <a href="index.jsp?removeReportInProgress=1">Remove report in progress number 1</a><br/>
+  <a href="h2">Manage H2 database</a> (leave User Name and Password empty but make sure the JDBC URL is filled with the URL from springTestToolTestWebapp.xml)<br/>
 
 
   <h1>Debug info</h1>

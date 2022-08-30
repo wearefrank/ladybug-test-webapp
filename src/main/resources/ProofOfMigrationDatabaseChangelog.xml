@@ -1,0 +1,24 @@
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd"
+	>
+	<changeSet id="Create table PROOF_OF_MIGRATION" author="Lenard van der Maas and Jaco de Groot">
+		<createTable tableName="PROOF_OF_MIGRATION">
+			<column name="ID" autoIncrement="true" type="BIGINT">
+				<constraints primaryKey="true" unique="true" nullable="false" />
+			</column>
+			<column name="CORRELATION_ID" type="varchar(128)"/>
+			<column name="ENDPOINT_NAME" type="varchar(256)"/>
+			<column name="MESSAGE" type="clob"/>
+			<column name="ACTION" type="varchar(16)"/>
+			<column name="COMPONENT" type="varchar(16)"/>
+			<column name="CHECKPOINT_NR" type="INT"/>
+			<column name="STATUS" type="varchar(16)"/>
+			<column name="TIMESTAMP" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+		</createTable>
+	</changeSet>
+	<changeSet id="load test data into table PROOF_OF_MIGRATION" author="Jaco de Groot">
+		<loadData file="ProofOfMigration.csv" tableName="PROOF_OF_MIGRATION"/>
+	</changeSet>
+</databaseChangeLog>

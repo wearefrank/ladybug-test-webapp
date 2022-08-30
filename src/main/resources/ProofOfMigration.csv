@@ -1,0 +1,9 @@
+ID,TIMESTAMP,COMPONENT,CORRELATION_ID,STATUS,CHECKPOINT_NR,ENDPOINT_NAME,ACTION,MESSAGE
+1,2022-08-29T16:17:12.899,Old component,cid-1,Success,1,Listener,READ,<message1/>
+2,2022-08-29T16:17:12.950,Old component,cid-1,Success,2,Sender,WRITE,<message2/>
+3,2022-08-29T16:17:13.003,Old component,cid-1,Success,3,Sender,READ,<message3/>
+4,2022-08-29T16:17:13.135,Old component,cid-1,Success,4,Listener,WRITE,<message4/>
+5,2022-08-29T16:17:12.915,New component,cid-1,Success,1,Listener,READ,<message1/>
+6,2022-08-29T16:17:12.960,New component,cid-1,Success,2,Sender,WRITE,<message2/>
+7,2022-08-29T16:17:13.012,New component,cid-1,Success,3,Sender,READ,<message3/>
+8,2022-08-29T16:17:13.130,New component,cid-1,Success,4,Listener,WRITE,<message4/>
