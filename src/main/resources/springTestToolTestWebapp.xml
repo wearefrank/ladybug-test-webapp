@@ -276,7 +276,7 @@
 		</property>
 	</bean>
 
-	<bean name="databaseStorage" class="nl.nn.testtool.storage.database.Storage" autowire="byName" init-method="init">
+	<bean name="databaseStorage" class="nl.nn.testtool.storage.database.DatabaseStorage" autowire="byName" init-method="init">
 		<property name="name" value="databaseStorage"/>
 		<property name="table" value="LADYBUG"/>
 		<property name="metadataColumns">
@@ -311,7 +311,7 @@
 		</property>
 	</bean>
 
-	<bean name="proofOfMigrationStorage" class="nl.nn.testtool.storage.proofofmigration.Storage" autowire="byName" init-method="init">
+	<bean name="proofOfMigrationStorage" class="nl.nn.testtool.storage.proofofmigration.ProofOfMigrationStorage" autowire="byName" init-method="init">
 		<property name="name" value="proofOfMigration"/>
 		<property name="table" value="PROOF_OF_MIGRATION"/>
 		<property name="storageIdColumnName" value="ID"/>
