@@ -113,8 +113,13 @@
 				<ref bean="proofOfMigrationStorageView"/>
 			</list>
 		</property>
+		<property name="defaultView" ref="defaultView"/>
+	</bean>
+
+	<!-- Profiles can override the default view with this bean -->
+	<bean name="defaultView" class="java.lang.String">
 		<!-- Demonstrate/test setting default view to other than first view in the list  -->
-		<property name="defaultView" value="White box"/>
+		<constructor-arg value="White box"/>
 	</bean>
 
 	<bean name="treePane" class="nl.nn.testtool.echo2.reports.TreePane" autowire="byName" init-method="initBean" scope="prototype"/>
@@ -361,5 +366,43 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="changeLog" value="classpath:ProofOfMigrationDatabaseChangelog.xml" />
 	</bean>
+
+	<beans profile="storage.file">
+		<bean name="defaultView" class="java.lang.String">
+			<constructor-arg value="File storage"/>
+		</bean>
+		<bean name="testStorage" class="nl.nn.testtool.storage.file.TestStorage" autowire="byName" init-method="init">
+			<property name="name" value="Test"/>
+			<property name="reportsFilename" value="../ibis-ladybug/data/file-storage/ladybug.tts"/>
+			<property name="metadataFilename" value="../ibis-ladybug/data/file-storage/ladybug.ttm"/>
+			<property name="persistentMetadata">
+				<list>
+					<value>storageId</value>
+					<value>storageSize</value>
+					<value>path</value>
+					<value>name</value>
+				</list>
+			</property>
+		</bean>
+	</beans>
+
+	<beans profile="storage.xml">
+		<bean name="testStorage" class="nl.nn.testtool.storage.xml.XmlStorage" autowire="byName" init-method="init">
+			<property name="name" value="Test"/>
+			<property name="reportsFolder" value="../ibis-ladybug-test-webapp/src/test/testtool"/>
+		</bean>
+	</beans>
+
+	<beans profile="storage.database">
+		<bean name="defaultView" class="java.lang.String">
+			<constructor-arg value="Database storage"/>
+		</bean>
+	</beans>
+
+	<beans profile="storage.proofofmigration">
+		<bean name="defaultView" class="java.lang.String">
+			<constructor-arg value="Proof of migration storage"/>
+		</bean>
+	</beans>
 
 </beans>
