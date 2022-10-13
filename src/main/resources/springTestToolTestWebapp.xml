@@ -97,7 +97,7 @@
 				<value>TIMESTAMP</value>
 				<value>COMPONENT</value>
 				<value>CORRELATION_ID</value>
-				<value>CHECKPOINT_NR</value>
+				<value>NR OF CHECKPOINTS</value>
 				<value>STATUS</value>
 			</list>
 		</property>
