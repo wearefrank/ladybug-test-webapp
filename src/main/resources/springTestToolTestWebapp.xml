@@ -234,7 +234,7 @@
 
 	<bean name="echo2Application" class="nl.nn.testtool.echo2.Echo2Application" autowire="byName" init-method="initBean" scope="prototype">
 		<property name="contentPane">
-			<bean class="nextapp.echo2.app.ContentPane"/>
+			<bean class="nl.nn.testtool.echo2.ContentPane"/>
 		</property>
 		<property name="reportsTreeCellRenderer">
 			<ref bean="reportsTreeCellRenderer"/>
@@ -246,7 +246,7 @@
 
 	<bean name="reportsTreeCellRenderer" class="nl.nn.testtool.echo2.reports.ReportsTreeCellRenderer"/>
 
-	<bean name="reportXmlTransformer" class="nl.nn.testtool.transform.ReportXmlTransformer">
+	<bean name="reportXmlTransformer" class="nl.nn.testtool.transform.ReportXmlTransformer" init-method="init">
 		<property name="xsltResource" value="nl/nn/testtool/test/junit/transformReport.xslt"/>
 	</bean>
 
