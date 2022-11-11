@@ -252,6 +252,35 @@
 
 	<bean name="rerunner" class="nl.nn.testtool.test.webapp.SimpleRerunner" autowire="byName"/>
 
+	<bean name="observerRoles" class="java.util.ArrayList">
+		<constructor-arg>
+			<list>
+				<value>IbisObserver</value>
+				<value>IbisDataAdmin</value>
+				<value>IbisAdmin</value>
+				<value>IbisTester</value>
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean name="dataAdminRoles" class="java.util.ArrayList">
+		<constructor-arg>
+			<list>
+				<value>IbisDataAdmin</value>
+				<value>IbisAdmin</value>
+				<value>IbisTester</value>
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean name="testerRoles" class="java.util.ArrayList">
+		<constructor-arg>
+			<list>
+				<value>IbisTester</value>
+			</list>
+		</constructor-arg>
+	</bean>
+
 	<!-- Use memory storage by default as Cypress tests depend on memory storage / starting with empty storages -->
 
 	<bean name="debugStorage"  class="nl.nn.testtool.storage.memory.Storage" autowire="byName">

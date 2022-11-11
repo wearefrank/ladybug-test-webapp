@@ -39,4 +39,26 @@
 		<url-pattern>/h2/*</url-pattern>
 	</servlet-mapping>
 
+	<!--
+	Enable security elements below to test security
+	See also ApiAuthorizationFilter.java and *Roles beans in springTestToolTestWebapp.xml
+	<login-config>
+		<auth-method>BASIC</auth-method>
+		<realm-name>Ladybug test webapp</realm-name>
+	</login-config>
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>All resources</web-resource-name>
+			<url-pattern>/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>IbisObserver</role-name>
+			<role-name>IbisAdmin</role-name>
+			<role-name>IbisDataAdmin</role-name>
+			<role-name>IbisTester</role-name>
+			<role-name>IbisWebService</role-name>
+		</auth-constraint>
+	</security-constraint>
+	-->
+
 </web-app>

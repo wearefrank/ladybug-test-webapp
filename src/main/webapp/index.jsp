@@ -18,6 +18,11 @@
 	String otherCorrelationId = UUID.randomUUID().toString();
 	String reportName;
 	List<String> reportNames = new ArrayList<String>();
+	String userName = null;
+
+	if (request.getUserPrincipal() != null) {
+		userName = request.getUserPrincipal().getName();
+	}
 
 	// Create report links
 	String createReportAction = request.getParameter("createReport");
@@ -142,6 +147,10 @@
 
 
   <h1>Debug info</h1>
+
+  Logged in user: <%= userName %><br/>
+
+  <br/>
 
   Name: <%= testTool.getName() %><br/>
   Version: <%= testTool.getVersion() %><br/>
