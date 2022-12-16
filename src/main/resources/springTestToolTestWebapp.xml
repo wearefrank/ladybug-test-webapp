@@ -20,38 +20,13 @@
 		<property name="regexFilter" value=".*"/>
 	</bean>
 
-	<bean name="whiteBoxViewMetadataNames" class="java.util.ArrayList">
-		<constructor-arg>
-			<list>
-				<value>storageId</value>
-				<value>endTime</value>
-				<value>duration</value>
-				<value>name</value>
-				<value>correlationId</value>
-				<value>status</value>
-				<value>numberOfCheckpoints</value>
-				<value>estimatedMemoryUsage</value>
-				<value>storageSize</value>
-			</list>
-		</constructor-arg>
-	</bean>
-
-	<bean name="whiteBoxView" class="nl.nn.testtool.filter.View" scope="prototype">
+	<bean name="whiteBoxView" class="nl.nn.testtool.filter.View" autowire="byName">
 		<property name="name" value="White box"/>
-		<property name="debugStorage">
-			<ref bean="debugStorage"/>
-		</property>
-		<property name="metadataNames">
-			<ref bean="whiteBoxViewMetadataNames"/>
-		</property>
 	</bean>
 
 	<!-- Demonstrate/test different list of columns for debug tab using a view -->
-	<bean name="nameOnlyView" class="nl.nn.testtool.filter.View" scope="prototype">
+	<bean name="nameOnlyView" class="nl.nn.testtool.filter.View" autowire="byName">
 		<property name="name" value="Report name only"/>
-		<property name="debugStorage">
-			<ref bean="debugStorage"/>
-		</property>
 		<property name="metadataNames">
 			<list>
 				<value>storageId</value><!-- Without storageId the report cannot be opened -->
@@ -60,40 +35,17 @@
 		</property>
 	</bean>
 
-	<bean name="fileStorageView" class="nl.nn.testtool.filter.View" scope="prototype">
+	<bean name="fileStorageView" class="nl.nn.testtool.filter.View" autowire="byName">
 		<property name="name" value="File storage"/>
 		<property name="debugStorage">
 			<ref bean="fileStorage"/>
 		</property>
-		<property name="metadataNames">
-			<ref bean="whiteBoxViewMetadataNames"/>
-		</property>
 	</bean>
 
-	<bean name="databaseStorageView" class="nl.nn.testtool.filter.View" scope="prototype">
+	<bean name="databaseStorageView" class="nl.nn.testtool.filter.View" autowire="byName">
 		<property name="name" value="Database storage"/>
 		<property name="debugStorage">
 			<ref bean="databaseStorage"/>
-		</property>
-		<property name="metadataNames">
-			<ref bean="whiteBoxViewMetadataNames"/>
-		</property>
-	</bean>
-
-	<bean name="proofOfMigrationStorageView" class="nl.nn.testtool.filter.View" scope="prototype">
-		<property name="name" value="Proof of migration storage"/>
-		<property name="debugStorage">
-			<ref bean="proofOfMigrationStorage"/>
-		</property>
-		<property name="metadataNames">
-			<list>
-				<value>ID</value>
-				<value>TIMESTAMP</value>
-				<value>COMPONENT</value>
-				<value>CORRELATION_ID</value>
-				<value>NR OF CHECKPOINTS</value>
-				<value>STATUS</value>
-			</list>
 		</property>
 	</bean>
 
@@ -104,7 +56,8 @@
 				<ref bean="whiteBoxView"/>
 				<ref bean="fileStorageView"/>
 				<ref bean="databaseStorageView"/>
-				<ref bean="proofOfMigrationStorageView"/>
+				<ref bean="proofOfMigrationView"/>
+				<ref bean="proofOfMigrationErrorsView"/>
 			</list>
 		</property>
 		<property name="defaultView" ref="defaultView"/>
@@ -153,7 +106,7 @@
 
 	<!-- Use memory storage by default as Cypress tests depend on memory storage / starting with empty storages -->
 
-	<bean name="debugStorage"  class="nl.nn.testtool.storage.memory.Storage" autowire="byName">
+	<bean name="debugStorage" class="nl.nn.testtool.storage.memory.Storage" autowire="byName">
 		<property name="name" value="Debug"/>
 	</bean>
 
@@ -165,88 +118,11 @@
 		<property name="name" value="fileStorage"/>
 		<property name="reportsFilename" value="../ibis-ladybug/data/file-storage/ladybug.tts"/>
 		<property name="metadataFilename" value="../ibis-ladybug/data/file-storage/ladybug.ttm"/>
-		<property name="persistentMetadata">
-			<list>
-				<value>storageId</value>
-				<value>storageSize</value>
-				<value>endTime</value>
-				<value>duration</value>
-				<value>name</value>
-				<value>correlationId</value>
-				<value>status</value>
-				<value>numberOfCheckpoints</value>
-				<value>estimatedMemoryUsage</value>
-			</list>
-		</property>
 	</bean>
 
 	<bean name="databaseStorage" class="nl.nn.testtool.storage.database.DatabaseStorage" autowire="byName" init-method="init">
 		<property name="name" value="databaseStorage"/>
-		<property name="table" value="LADYBUG"/>
-		<property name="metadataColumns">
-			<list>
-				<value>storageId</value>
-				<value>endTime</value>
-				<value>duration</value>
-				<value>name</value>
-				<value>correlationId</value>
-				<value>status</value>
-				<value>numberOfCheckpoints</value>
-				<value>estimatedMemoryUsage</value>
-				<value>storageSize</value>
-			</list>
-		</property>
-		<property name="integerColumns">
-			<list>
-				<value>storageId</value>
-				<value>numberOfCheckpoints</value>
-			</list>
-		</property>
-		<property name="longColumns">
-			<list>
-				<value>estimatedMemoryUsage</value>
-				<value>storageSize</value>
-			</list>
-		</property>
-		<property name="timestampColumns">
-			<list>
-				<value>endTime</value>
-			</list>
-		</property>
 	</bean>
-
-	<bean name="proofOfMigrationStorage" class="nl.nn.testtool.storage.proofofmigration.ProofOfMigrationStorage" autowire="byName" init-method="init">
-		<property name="name" value="proofOfMigration"/>
-		<property name="table" value="PROOF_OF_MIGRATION"/>
-		<property name="storageIdColumnName" value="ID"/>
-		<property name="metadataColumns">
-			<list>
-				<value>ID</value>
-				<value>TIMESTAMP</value>
-				<value>COMPONENT</value>
-				<value>CORRELATION_ID</value>
-				<value>CHECKPOINT_NR</value>
-				<value>STATUS</value>
-			</list>
-		</property>
-		<property name="integerColumns">
-			<list>
-				<value>ID</value>
-				<value>CHECKPOINT_NR</value>
-			</list>
-		</property>
-		<property name="longColumns">
-			<list>
-			</list>
-		</property>
-		<property name="timestampColumns">
-			<list>
-				<value>TIMESTAMP</value>
-			</list>
-		</property>
-	</bean>
-
-	<bean name="dbmsSupport" class="nl.nn.testtool.storage.database.DbmsSupport" autowire="byName"/>
 
 	<bean name="dataSource" class="org.h2.jdbcx.JdbcDataSource">
 		<property name="URL" value="jdbc:h2:../ibis-ladybug/data/database-storage/ladybug"/>
@@ -274,14 +150,6 @@
 			<property name="name" value="Test"/>
 			<property name="reportsFilename" value="../ibis-ladybug/data/file-storage/ladybug.tts"/>
 			<property name="metadataFilename" value="../ibis-ladybug/data/file-storage/ladybug.ttm"/>
-			<property name="persistentMetadata">
-				<list>
-					<value>storageId</value>
-					<value>storageSize</value>
-					<value>path</value>
-					<value>name</value>
-				</list>
-			</property>
 		</bean>
 	</beans>
 
