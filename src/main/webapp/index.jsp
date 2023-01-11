@@ -36,6 +36,16 @@
 		testTool.startpoint(otherCorrelationId, null, reportName, "Hello World!");
 		testTool.endpoint(otherCorrelationId, null, reportName, "Goodbye World!");
 	}
+	reportNames.add(reportName = "Report with empty string as name");
+	if (reportName.equals(createReportAction)) {
+		testTool.startpoint(otherCorrelationId, null, "", "Hello World!");
+		testTool.endpoint(otherCorrelationId, null, "", "Goodbye World!");
+	}
+	reportNames.add(reportName = "Report with null as name");
+	if (reportName.equals(createReportAction)) {
+		testTool.startpoint(otherCorrelationId, null, null, "Hello World!");
+		testTool.endpoint(otherCorrelationId, null, null, "Goodbye World!");
+	}
 	reportNames.add(reportName = "Message is captured asynchronously from a character stream");
 	if (reportName.equals(createReportAction)) {
 		testTool.setCloseMessageCapturers(true);
