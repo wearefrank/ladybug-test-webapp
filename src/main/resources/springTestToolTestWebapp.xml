@@ -56,8 +56,8 @@
 				<ref bean="whiteBoxView"/>
 				<ref bean="fileStorageView"/>
 				<ref bean="databaseStorageView"/>
-				<ref bean="proofOfMigrationView"/>
-				<ref bean="proofOfMigrationErrorsView"/>
+				<ref bean="proofOfMigrationView"/><!-- See Config.java -->
+				<ref bean="proofOfMigrationErrorsView"/><!-- See Config.java -->
 			</list>
 		</property>
 		<property name="defaultView" ref="defaultView"/>
