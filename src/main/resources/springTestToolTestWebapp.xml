@@ -3,9 +3,11 @@
 	xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/task    http://www.springframework.org/schema/task/spring-task.xsd
 	"
 	>
 
@@ -141,6 +143,21 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="changeLog" value="classpath:ProofOfMigrationDatabaseChangelog.xml" />
 	</bean>
+
+	<!-- Test logging thread info of reports in progress -->
+
+	<bean name="closeReportsTask" class="nl.nn.testtool.CloseReportsTask" autowire="byName">
+		<property name="logThreadInfoMinReportAge" value="#{10 * 1000}"/>
+		<property name="logThreadInfoMaxReportAge" value="#{20 * 1000}"/>
+	</bean>
+
+	<task:scheduler id="closeReportsScheduler"/>
+
+	<task:scheduled-tasks scheduler="closeReportsScheduler">
+		<task:scheduled ref="closeReportsTask" method="closeReports" fixed-delay="#{10 * 1000}" />
+	</task:scheduled-tasks>
+
+	<!-- Profiles -->
 
 	<beans profile="storage.file">
 		<bean name="defaultView" class="java.lang.String">
