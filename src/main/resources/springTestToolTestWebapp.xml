@@ -13,7 +13,7 @@
 
 	<context:component-scan base-package="nl.nn.testtool"/>
 
-	<bean name="testTool" class="nl.nn.testtool.TestTool" autowire="byName">
+	<bean name="testTool" class="nl.nn.testtool.TestTool" autowire="byName" init-method="init">
 		<property name="configName" value="Ladybug Test Webapp"/>
 		<property name="configVersion" value="1.0"/>
 		<property name="maxCheckpoints" value="1000"/>
