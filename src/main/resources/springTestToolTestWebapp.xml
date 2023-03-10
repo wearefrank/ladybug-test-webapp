@@ -4,10 +4,12 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/task    http://www.springframework.org/schema/task/spring-task.xsd
+		http://www.springframework.org/schema/util    http://www.springframework.org/schema/util/spring-util.xsd
 	"
 	>
 
@@ -77,34 +79,24 @@
 
 	<bean name="rerunner" class="nl.nn.testtool.test.webapp.SimpleRerunner" autowire="byName"/>
 
-	<bean name="observerRoles" class="java.util.ArrayList">
-		<constructor-arg>
-			<list>
-				<value>IbisObserver</value>
-				<value>IbisDataAdmin</value>
-				<value>IbisAdmin</value>
-				<value>IbisTester</value>
-			</list>
-		</constructor-arg>
-	</bean>
+	<!--  Enable security elements in web.xml to test roles -->
 
-	<bean name="dataAdminRoles" class="java.util.ArrayList">
-		<constructor-arg>
-			<list>
-				<value>IbisDataAdmin</value>
-				<value>IbisAdmin</value>
-				<value>IbisTester</value>
-			</list>
-		</constructor-arg>
-	</bean>
+	<util:list id="observerRoles">
+		<value>IbisObserver</value>
+		<value>IbisDataAdmin</value>
+		<value>IbisAdmin</value>
+		<value>IbisTester</value>
+	</util:list>
 
-	<bean name="testerRoles" class="java.util.ArrayList">
-		<constructor-arg>
-			<list>
-				<value>IbisTester</value>
-			</list>
-		</constructor-arg>
-	</bean>
+	<util:list id="dataAdminRoles">
+		<value>IbisDataAdmin</value>
+		<value>IbisAdmin</value>
+		<value>IbisTester</value>
+	</util:list>
+
+	<util:list id="testerRoles">
+		<value>IbisTester</value>
+	</util:list>
 
 	<!-- Use memory storage by default as Cypress tests depend on memory storage / starting with empty storages -->
 
