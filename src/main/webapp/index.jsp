@@ -71,6 +71,13 @@
 		testTool.setMessageEncoder(testTool.getMessageEncoder());
 		testTool.endpoint(correlationId, null, reportName, "Goodbye World!");
 	}
+	reportNames.add(reportName = "Hide a checkpoint in blackbox view");
+	if (reportName.equals(createReportAction)) {
+		testTool.startpoint(correlationId, null, reportName, "Hello World!");
+		testTool.infopoint(correlationId, null, "Hide this checkpoint", "");
+		testTool.setMessageEncoder(testTool.getMessageEncoder());
+		testTool.endpoint(correlationId, null, reportName, "Goodbye World!");
+	}
 	reportNames.add(reportName = "Message encoded using Base64");
 	if (reportName.equals(createReportAction)) {
 		byte[] message = new byte[6];
