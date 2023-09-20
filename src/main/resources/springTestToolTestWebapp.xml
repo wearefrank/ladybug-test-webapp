@@ -110,14 +110,27 @@
 		<property name="name" value="Test"/>
 	</bean>
 
+	<bean name="reportsFilename" class="java.lang.String">
+		<constructor-arg value="../ibis-ladybug/data/file-storage/ladybug.tts"/>
+	</bean>
+
+	<bean name="metadataFilename" class="java.lang.String">
+		<constructor-arg value="../ibis-ladybug/data/file-storage/ladybug.ttm"/>
+	</bean>
+
 	<bean name="fileStorage" class="nl.nn.testtool.storage.file.Storage" autowire="byName">
 		<property name="name" value="fileStorage"/>
-		<property name="reportsFilename" value="../ibis-ladybug/data/file-storage/ladybug.tts"/>
-		<property name="metadataFilename" value="../ibis-ladybug/data/file-storage/ladybug.ttm"/>
+		<property name="reportsFilename" value="#{reportsFilename}"/>
+		<property name="metadataFilename" value="#{metadataFilename}"/>
+	</bean>
+
+	<bean name="maxStorageSize" class="java.lang.String">
+		<constructor-arg value="#{10 * 1024 * 1024}"/>
 	</bean>
 
 	<bean name="databaseStorage" class="nl.nn.testtool.storage.database.DatabaseStorage" autowire="byName">
 		<property name="name" value="databaseStorage"/>
+		<property name="maxStorageSize" value="#{maxStorageSize}"/>
 	</bean>
 
 	<bean name="dataSource" class="org.h2.jdbcx.JdbcDataSource">
@@ -157,6 +170,11 @@
 		<bean name="defaultView" class="java.lang.String">
 			<constructor-arg value="File storage"/>
 		</bean>
+		<bean name="debugStorage,fileStorage" class="nl.nn.testtool.storage.file.Storage" autowire="byName">
+			<property name="name" value="Debug"/>
+			<property name="reportsFilename" value="../ibis-ladybug/data/file-storage/ladybug.tts"/>
+			<property name="metadataFilename" value="../ibis-ladybug/data/file-storage/ladybug.ttm"/>
+		</bean>
 		<bean name="testStorage" class="nl.nn.testtool.storage.file.TestStorage" autowire="byName">
 			<property name="name" value="Test"/>
 			<property name="reportsFilename" value="../ibis-ladybug/data/file-storage/ladybug.tts"/>
@@ -174,6 +192,10 @@
 	<beans profile="storage.database">
 		<bean name="defaultView" class="java.lang.String">
 			<constructor-arg value="Database storage"/>
+		</bean>
+		<bean name="debugStorage,databaseStorage" class="nl.nn.testtool.storage.database.DatabaseStorage" autowire="byName">
+			<property name="name" value="Debug"/>
+			<property name="maxStorageSize" value="#{maxStorageSize}"/>
 		</bean>
 	</beans>
 
