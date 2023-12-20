@@ -24,6 +24,19 @@
 		<property name="regexFilter" value=".*"/>
 	</bean>
 
+	<bean name="metadataExtractor" class="nl.nn.testtool.MetadataExtractor">
+		<property name="extraMetadataFieldExtractors">
+			<list>
+				<bean class="nl.nn.testtool.metadata.RegexMetadataFieldExtractor">
+					<!-- See LadybugCustomDatabaseChangelog.xml -->
+					<property name="name" value="custom"/>
+					<property name="label" value="Custom"/>
+					<property name="regex" value="(Hello).*"/>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
 	<bean name="whiteBoxView" class="nl.nn.testtool.filter.View" autowire="byName">
 		<property name="name" value="White box"/>
 	</bean>
@@ -50,6 +63,20 @@
 		<property name="name" value="Database storage"/>
 		<property name="debugStorage">
 			<ref bean="databaseStorage"/>
+		</property>
+		<property name="metadataNames">
+			<list>
+				<value>storageId</value>
+				<value>endTime</value>
+				<value>duration</value>
+				<value>name</value>
+				<value>correlationId</value>
+				<value>status</value>
+				<value>numberOfCheckpoints</value>
+				<value>estimatedMemoryUsage</value>
+				<value>storageSize</value>
+				<value>custom</value>
+			</list>
 		</property>
 	</bean>
 
@@ -81,7 +108,7 @@
 		<constructor-arg value="White box"/>
 	</bean>
 
-	<bean name="xsltResource" class="java.lang.String" primary="true">
+	<bean name="xsltResource" class="java.lang.String">
 		<constructor-arg value="nl/nn/testtool/test/junit/transformReport.xslt"/>
 	</bean>
 
@@ -136,25 +163,47 @@
 		<constructor-arg value="#{10 * 1024 * 1024}"/>
 	</bean>
 
-	<bean name="databaseStorage" class="nl.nn.testtool.storage.database.DatabaseStorage" autowire="byName">
+	<bean
+		name="databaseStorage"
+		class="nl.nn.testtool.storage.database.DatabaseStorage"
+		autowire="byName"
+		depends-on="ladybugDatabaseChangelog,ladybugTestDatabaseChangelog"
+		>
 		<property name="name" value="databaseStorage"/>
 		<property name="maxStorageSize" value="#{maxStorageSize}"/>
+		<property name="storeReportXml" value="true"/>
 	</bean>
 
-	<bean name="dataSource" class="org.h2.jdbcx.JdbcDataSource">
+	<!-- Without connection pooling (considerably slows down GUI performance) -->
+	<!-- bean name="dataSource" class="org.h2.jdbcx.JdbcDataSource">
 		<property name="URL" value="jdbc:h2:../ibis-ladybug/data/database-storage/ladybug"/>
+	</bean -->
+
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="org.h2.Driver"/>
+		<property name="url" value="jdbc:h2:../ibis-ladybug/data/database-storage/ladybug"/>
 	</bean>
 
 	<bean name="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
-	<bean name="liquibase" class="liquibase.integration.spring.SpringLiquibase">
+	<bean name="ladybugDatabaseChangelog" class="liquibase.integration.spring.SpringLiquibase">
 		<property name="dataSource" ref="dataSource" />
-		<property name="changeLog" value="classpath:LadybugDatabaseChangelog.xml" />
+		<property name="changeLog" value="classpath:ladybug/LadybugDatabaseChangelog.xml" />
 	</bean>
 
-	<bean name="liquibase2" class="liquibase.integration.spring.SpringLiquibase">
+	<bean name="ladybugTestDatabaseChangelog" class="liquibase.integration.spring.SpringLiquibase">
+		<property name="dataSource" ref="dataSource" />
+		<property name="changeLog" value="classpath:ladybug/LadybugTestDatabaseChangelog.xml" />
+	</bean>
+
+	<bean name="ladybugCustomDatabaseChangelog" class="liquibase.integration.spring.SpringLiquibase">
+		<property name="dataSource" ref="dataSource" />
+		<property name="changeLog" value="classpath:LadybugCustomDatabaseChangelog.xml" />
+	</bean>
+
+	<bean name="proofOfMigrationDatabaseChangelog" class="liquibase.integration.spring.SpringLiquibase">
 		<property name="dataSource" ref="dataSource" />
 		<property name="changeLog" value="classpath:ProofOfMigrationDatabaseChangelog.xml" />
 	</bean>
@@ -201,9 +250,23 @@
 		<bean name="defaultView" class="java.lang.String">
 			<constructor-arg value="Database storage"/>
 		</bean>
-		<bean name="debugStorage,databaseStorage" class="nl.nn.testtool.storage.database.DatabaseStorage" autowire="byName">
+		<bean
+			name="debugStorage,databaseStorage"
+			class="nl.nn.testtool.storage.database.DatabaseStorage"
+			autowire="byName"
+			depends-on="ladybugDatabaseChangelog,ladybugTestDatabaseChangelog"
+			>
 			<property name="name" value="Debug"/>
 			<property name="maxStorageSize" value="#{maxStorageSize}"/>
+			<property name="storeReportXml" value="true"/>
+		</bean>
+		<bean
+			name="testStorage"
+			class="nl.nn.testtool.storage.database.DatabaseTestStorage"
+			autowire="byName"
+			depends-on="ladybugDatabaseChangelog,ladybugTestDatabaseChangelog"
+			>
+			<property name="name" value="Test"/>
 		</bean>
 	</beans>
 
