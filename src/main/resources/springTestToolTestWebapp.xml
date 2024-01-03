@@ -13,6 +13,9 @@
 	"
 	>
 
+	<!-- Make ${ladybug.dir:ladybug} read system property ladybug.dir with default value ladybug -->
+	<context:property-placeholder/>
+
 	<context:component-scan base-package="nl.nn.testtool"/>
 
 	<bean name="testTool" class="nl.nn.testtool.TestTool" autowire="byName">
