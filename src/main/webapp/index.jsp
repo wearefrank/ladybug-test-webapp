@@ -127,6 +127,26 @@
 	}
 %>
 <html>
+<h1>Enter Text</h1>
+
+<form method="post" action="xslt-debugger.jsp">
+	<label for="xmlInput">XML: </label>
+	<textarea id="xmlInput" name="xmlInput" rows="5" cols="50"></textarea>
+
+	<br>
+
+	<label for="xslInput">XSL: </label>
+	<textarea id="xslInput" name="xslInput" rows="5" cols="50"></textarea>
+
+	<br>
+
+	<label for="xsltVersion">XSLT Version: </label>
+	<textarea id="xsltVersion" name="xsltVersion" rows="5" cols="50"></textarea>
+
+	<br>
+
+	<input type="submit" value="Submit">
+</form>
 
   <h1>Browse</h1>
 
