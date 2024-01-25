@@ -23,6 +23,7 @@
     String version = request.getParameter("xsltVersion");
 
     XSLTReporterSetup setup = new XSLTReporterSetup(xmlInput, xslInput, Integer.parseInt(version));
+    setup.transform();
 
     String reportName;
     if(Integer.parseInt(version) == 1){
