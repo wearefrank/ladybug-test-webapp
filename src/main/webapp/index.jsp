@@ -144,8 +144,7 @@
 	<textarea id="xsltVersion" name="xsltVersion" rows="5" cols="50"></textarea>
 
 	<br>
-
- .	<input type="submit" value="Submit">
+	<input type="submit" value="Submit">
 </form>
 
   <h1>Browse</h1>
