@@ -16,23 +16,24 @@
     String xmlInput = request.getParameter("xmlInput");
     String xslInput = request.getParameter("xslInput");
     String version = request.getParameter("xsltVersion");
-
-    XSLTReporterSetup setup = new XSLTReporterSetup(xmlInput, xslInput, Integer.parseInt(version));
     try {
+        XSLTReporterSetup setup = new XSLTReporterSetup(xmlInput, xslInput, Integer.parseInt(version));
         setup.transform();
-    }catch (Exception e){
+
+        String reportName;
+        if (Integer.parseInt(version) == 1) {
+            reportName = "Xalan";
+        } else {
+            reportName = "Saxon";
+        }
+
+        XSLTTraceReporter.initiate(testTool, setup, correlationId, reportName);
+        response.sendRedirect("/testtool");
+
+    }catch(Exception e){
+        System.out.println(e.toString());
         response.sendRedirect("error-page.jsp");
     }
-
-    String reportName;
-    if(Integer.parseInt(version) == 1){
-        reportName = "Xalan";
-    }else{
-        reportName = "Saxon";
-    }
-
-    XSLTTraceReporter.initiate(testTool, setup, correlationId, reportName);
-//    response.sendRedirect("/testtool");
 %>
 
 <html>
