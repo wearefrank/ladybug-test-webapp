@@ -16,6 +16,8 @@ jobs:
             owner: 'wearefrank',
             repo: 'ladybug-frontend',
             workflow_id: 'testing.js.yml',
-            ref: 'master'
+            ref: 'master',
+            inputs: {
+            }
           })
           
