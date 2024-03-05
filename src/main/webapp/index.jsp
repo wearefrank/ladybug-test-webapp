@@ -121,6 +121,9 @@
 	if (request.getParameter("changeDebugStorage") != null) {
 		testTool.setDebugStorage((LogStorage)testTool.getStorage(request.getParameter("changeDebugStorage")));
 	}
+	if (request.getParameter("resetDebugStorage") != null) {
+		testTool.setDebugStorage((LogStorage) webApplicationContext.getBean("debugStorage"));
+	}
 	if (request.getParameter("removeReportInProgress") != null) {
 		int nr = Integer.valueOf(request.getParameter("removeReportInProgress"));
 		testTool.removeReportInProgress(nr -1);
@@ -163,6 +166,7 @@
 
   <a href="index.jsp?clearDebugStorage=true">Clear debug storage</a><br/>
   <a href="index.jsp?changeDebugStorage=databaseStorage">Change debug storage to database storage</a><br/>
+  <a href="index.jsp?resetDebugStorage=debugStorage">Reset debug storage to default memory storage</a><br/>
   <a href="index.jsp?removeReportInProgress=1">Remove report in progress number 1</a><br/>
   <a href="h2">Manage H2 database</a> (leave User Name and Password empty but make sure the JDBC URL is filled with the URL from springTestToolTestWebapp.xml)<br/>
 
