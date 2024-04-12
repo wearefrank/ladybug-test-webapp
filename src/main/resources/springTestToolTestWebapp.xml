@@ -187,6 +187,10 @@
 		<property name="url" value="jdbc:h2:../${ladybug.dir:ladybug}/data/database-storage/ladybug"/>
 	</bean>
 
+	<bean name="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+
 	<bean name="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
