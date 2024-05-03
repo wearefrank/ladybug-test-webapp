@@ -11,6 +11,7 @@
 		http://www.springframework.org/schema/task    http://www.springframework.org/schema/task/spring-task.xsd
 		http://www.springframework.org/schema/util    http://www.springframework.org/schema/util/spring-util.xsd
 	"
+	default-lazy-init="true"
 	>
 
 	<!-- Make ${ladybug.dir:ladybug} read system property ladybug.dir with default value ladybug -->
@@ -202,16 +203,6 @@
 	<bean name="ladybugDatabaseChangelog" class="liquibase.integration.spring.SpringLiquibase">
 		<property name="dataSource" ref="dataSource" />
 		<property name="changeLog" value="classpath:ladybug/DatabaseChangelog.xml" />
-	</bean>
-
-	<bean name="ladybugCustomDatabaseChangelog" class="liquibase.integration.spring.SpringLiquibase">
-		<property name="dataSource" ref="dataSource" />
-		<property name="changeLog" value="classpath:LadybugCustomDatabaseChangelog.xml" />
-	</bean>
-
-	<bean name="proofOfMigrationDatabaseChangelog" class="liquibase.integration.spring.SpringLiquibase">
-		<property name="dataSource" ref="dataSource" />
-		<property name="changeLog" value="classpath:ProofOfMigrationDatabaseChangelog.xml" />
 	</bean>
 
 	<!-- Test logging thread info of reports in progress -->

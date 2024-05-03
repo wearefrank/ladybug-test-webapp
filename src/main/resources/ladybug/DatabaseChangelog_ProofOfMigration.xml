@@ -1,4 +1,4 @@
-<!--  Received from Gerrit (20230203), added changeSets for ProofOfMigration(Ids).csv  -->
+<!--  Received from Gerrit (20230203) -->
 <databaseChangeLog
 	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -252,13 +252,4 @@
 			<column name="TIMESTAMP"/>
 		</createIndex>
 	</changeSet>
-
-	<changeSet id="Insert test data into table MESSAGES" author="Jaco de Groot">
-		<loadData file="ProofOfMigration.csv" tableName="MESSAGES"/>
-	</changeSet>
-
-	<changeSet id="Insert test data into table IDS" author="Jaco de Groot">
-		<loadData file="ProofOfMigrationIds.csv" tableName="IDS"/>
-	</changeSet>
-
 </databaseChangeLog>
