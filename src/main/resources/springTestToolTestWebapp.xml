@@ -90,6 +90,12 @@
 		</property>
 	</bean>
 
+	<bean name="lowLevelErrorTestView" class="nl.nn.testtool.filter.View" autowire="byName">
+		<property name="name" value="Low level error demo view" />
+		<property name="debugStorage">
+			<ref bean="errorGeneratingStorage"/>
+		</property>
+	</bean>
 	<bean name="views" class="nl.nn.testtool.filter.Views">
 		<property name="views">
 			<list>
@@ -100,6 +106,7 @@
 				<ref bean="databaseStorageView"/>
 				<ref bean="proofOfMigrationView"/><!-- See Config.java -->
 				<ref bean="proofOfMigrationErrorsView"/><!-- See Config.java -->
+				<ref bean="lowLevelErrorTestView" />
 			</list>
 		</property>
 		<property name="defaultView" ref="defaultView"/>
@@ -160,6 +167,10 @@
 		<property name="name" value="fileStorage"/>
 		<property name="reportsFilename" value="#{reportsFilename}"/>
 		<property name="metadataFilename" value="#{metadataFilename}"/>
+	</bean>
+
+	<bean name="errorGeneratingStorage" class="nl.nn.testtool.storages.ErrorGeneratingStorage">
+		<property name="name" value="errorGeneratingStorage" />
 	</bean>
 
 	<bean name="maxStorageSize" class="java.lang.String">
