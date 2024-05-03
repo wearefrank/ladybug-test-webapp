@@ -1,4 +1,4 @@
-<!--  Received from Gerrit (20230203) -->
+<!--  Received from Ali (20240503) -->
 <databaseChangeLog
 	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -217,6 +217,13 @@
 		</createIndex>
 	</changeSet>
 
+	<changeSet id="Drop obsolete indices" author="Gerrit van Brakel" >
+		<dropIndex indexName="PK_MESSAGES_GetMatchingMessage" tableName="MESSAGES"/>
+		<dropIndex indexName="IX_MESSAGES_DoDiff_TableListener" tableName="MESSAGES"/>
+		<dropIndex indexName="PK_MESSAGES_StoreRequest" tableName="MESSAGES"/>
+	</changeSet>
+
+
 	<changeSet id="Indices for Endpoint_seq_nr" author="Gerrit van Brakel">
 		<createIndex tableName="MESSAGES" indexName="IX_MESSAGES_01">
 			<column name="CORRELATION_ID"/>
@@ -248,8 +255,90 @@
 	</changeSet>
 
 	<changeSet id="Index for Delete" author="Gerrit van Brakel">
+		<preConditions onFail="MARK_RAN" onFailMessage="This index exists no need to recreate">
+			<not>
+				<indexExists tableName="MESSAGES" indexName="IX_MESSAGES_05"/>
+			</not>
+		</preConditions>
 		<createIndex tableName="MESSAGES" indexName="IX_MESSAGES_05">
 			<column name="TIMESTAMP"/>
 		</createIndex>
 	</changeSet>
+
+	<changeSet id="Index DoDiff v2" author="Gerrit van Brakel">
+		<createIndex tableName="MESSAGES" indexName="IX_MESSAGES_08">
+			<column name="COMPARE_STATUS"/>
+			<column name="ID"/>
+		</createIndex>
+		<createIndex tableName="MESSAGES" indexName="IDX_MESSAGES_09">
+			<column name="CORRELATION_ID"/>
+			<column name="COMPONENT"/>
+			<column name="COMPARE_STATUS"/>
+		</createIndex>
+	</changeSet>
+
+	<changeSet id="Drop obsolete IX_MESSAGES_06 index" author="Ali Sihab Akcan" >
+		<preConditions onFail="MARK_RAN" onFailMessage="Index does not exist">
+			<indexExists tableName="MESSAGES" indexName="IX_MESSAGES_06"/>
+		</preConditions>
+		<dropIndex indexName="IX_MESSAGES_06" tableName="MESSAGES"/>
+	</changeSet>
+
+	<changeSet id="Drop obsolete IX_MESSAGES_07 index" author="Ali Sihab Akcan" >
+		<preConditions onFail="MARK_RAN" onFailMessage="Index does not exist">
+			<indexExists tableName="MESSAGES" indexName="IX_MESSAGES_07"/>
+		</preConditions>
+		<dropIndex indexName="IX_MESSAGES_07" tableName="MESSAGES"/>
+	</changeSet>
+
+
+<!--  
+	<changeSet id="All indices on MESSAGES" author="Gerrit van Brakel">
+		<createIndex tableName="MESSAGES" indexName="IDX_MESSAGES_01">
+			<column name="CORRELATION_ID"/>
+			<column name="ACTION"/>
+			<column name="ENDPOINT_NAME"/>
+			<column name="ENDPOINT_SEQ_NR"/>
+			<column name="CHECKPOINT_NR"/>
+		</createIndex>
+		<createIndex tableName="MESSAGES" indexName="IDX_MESSAGES_02">
+			<column name="CORRELATION_ID"/>
+			<column name="ACTION"/>
+			<column name="COMPONENT"/>
+			<column name="CHECKPOINT_NR"/>
+		</createIndex>
+		<createIndex tableName="MESSAGES" indexName="IDX_MESSAGES_03">
+			<column name="CORRELATION_ID"/>
+			<column name="CHECKPOINT_NR"/>
+		</createIndex>
+		<createIndex tableName="MESSAGES" indexName="IDX_MESSAGES_04">
+			<column name="TIMESTAMP"/>
+		</createIndex>
+		<createIndex tableName="MESSAGES" indexName="IDX_MESSAGES_05">
+			<column name="STATUS"/>
+			<column name="TIMESTAMP"/>
+		</createIndex>
+		<createIndex tableName="MESSAGES" indexName="IDX_MESSAGES_06">
+			<column name="COMPARE_STATUS"/>
+			<column name="ID"/>
+		</createIndex>
+		<createIndex tableName="MESSAGES" indexName="IDX_MESSAGES_07">
+			<column name="CORRELATION_ID"/>
+			<column name="COMPONENT"/>
+			<column name="COMPARE_STATUS"/>
+		</createIndex>
+	</changeSet>
+-->
+
+	<changeSet id="Convert Compare status" author="Gerrit van Brakel">
+		<sql>update MESSAGES set COMPARE_STATUS='none' WHERE COMPARE_STATUS='READY' AND COMPONENT='tibco'</sql>
+	</changeSet>
+
+	<changeSet id="increase length for CORRELATION_ID in MESSAGES table" author="Ali Sihab Akcan">
+		<modifyDataType
+			columnName="CORRELATION_ID"
+			newDataType="varchar(256)"
+			tableName="MESSAGES"/>
+	</changeSet>
+
 </databaseChangeLog>
