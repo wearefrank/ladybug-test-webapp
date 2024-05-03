@@ -1,4 +1,4 @@
-<!--  Received from Ali (20240503) -->
+<!--  Received from Ali (20240503). Disabled some changes, see comments that start with PREVENT WARNING -->
 <databaseChangeLog
 	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -28,12 +28,13 @@
 		<createSequence sequenceName="SEQ_MESSAGES"/>
 	</changeSet>
 
+	<!-- PREVENT WARNING (column already present in a previous changeSet)
 	<changeSet id="Add ENDPOINT_SEQ_NR to MESSAGES" author="Gerrit van Brakel" failOnError="false">
 		<addColumn tableName="MESSAGES">
 			<column name="ENDPOINT_SEQ_NR" type="INT"/>
 			<column name="ALIGN_STATUS" type="varchar(16)" defaultValue="TODO"/>
 		</addColumn>
-	</changeSet>
+	</changeSet -->
 
 	<changeSet id="Add default value to STATUS" author="Lenard van der Maas" failOnError="false">
 		<addDefaultValue columnName="STATUS"
@@ -41,10 +42,11 @@
 			tableName="MESSAGES"/>
 	</changeSet>
 
+	<!-- PREVENT WARNING (sequence already present in a previous changeSet)
 	<changeSet id="SEQ_MESSAGES" author="Lenard van der Maas" failOnError="false">
 		<comment>Set sequence for MESSAGES Table</comment>
 		<createSequence sequenceName="SEQ_MESSAGES"/>
-	</changeSet>
+	</changeSet -->
 
 
 	<changeSet id="Create IDS" author="Lenard van der Maas">
@@ -59,11 +61,12 @@
 		</createTable>
 	</changeSet>
 
+	<!-- PREVENT WARNING (column already present in a previous changeSet)
 	<changeSet id="Add timestamp to IDS" author="Gerrit van Brakel" failOnError="false">
 		<addColumn tableName="IDS">
 			<column name="TIMESTAMP" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
 		</addColumn>
-	</changeSet>
+	</changeSet -->
 
 
 	<changeSet id="Add Index to view cases by timestamp, and match to messages" author="Gerrit van Brakel">
@@ -73,6 +76,7 @@
 		</createIndex>
 	</changeSet>
 
+	<!-- PREVENT WARNING (index to be removed not present in a previous changeSet)
 	<changeSet author="Ali Sihab Akcan" id="Drop index PK_MESSAGES_LADYBUG_1 no use">
 	    <preConditions onFail="MARK_RAN" onFailMessage="This index does not exist to be removed.">
             <indexExists tableName="MESSAGES" indexName="PK_MESSAGES_LADYBUG_1"/>
@@ -141,7 +145,7 @@
             <indexExists tableName="MESSAGES" indexName="PK_MESSAGES_DatabasePoller"/>
 	    </preConditions>
 		<dropIndex indexName="PK_MESSAGES_DatabasePoller" tableName="MESSAGES"/>
-	</changeSet>
+	</changeSet -->
 
 	<!-- Recreate indices -->
 
@@ -201,12 +205,13 @@
 		</createIndex>
 	</changeSet>
 
+	<!-- PREVENT WARNING (index to be removed not present in a previous changeSet)
 	<changeSet author="Ali Sihab Akcan" id="Drop index IX_MESSAGES_DoDiff_TableListener no use">
 		<preConditions onFail="MARK_RAN" onFailMessage="This index does not exist to be removed.">
 			<indexExists tableName="MESSAGES" indexName="IX_MESSAGES_DoDiff_TableListener"/>
 		</preConditions>
 		<dropIndex indexName="IX_MESSAGES_DoDiff_TableListener" tableName="MESSAGES"/>
-	</changeSet>
+	</changeSet -->
 
 	<changeSet id="Recreate Index for DoDiff_TableListener to MESSAGES" author="Ali Sihab Akcan">
 		<createIndex tableName="MESSAGES" indexName="IX_MESSAGES_DoDiff_TableListener">
@@ -277,6 +282,7 @@
 		</createIndex>
 	</changeSet>
 
+	<!-- PREVENT WARNING (index to be removed not present in a previous changeSet)
 	<changeSet id="Drop obsolete IX_MESSAGES_06 index" author="Ali Sihab Akcan" >
 		<preConditions onFail="MARK_RAN" onFailMessage="Index does not exist">
 			<indexExists tableName="MESSAGES" indexName="IX_MESSAGES_06"/>
@@ -289,7 +295,7 @@
 			<indexExists tableName="MESSAGES" indexName="IX_MESSAGES_07"/>
 		</preConditions>
 		<dropIndex indexName="IX_MESSAGES_07" tableName="MESSAGES"/>
-	</changeSet>
+	</changeSet -->
 
 
 <!--  
