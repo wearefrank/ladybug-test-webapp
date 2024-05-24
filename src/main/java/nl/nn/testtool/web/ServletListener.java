@@ -1,5 +1,5 @@
 /*
-   Copyright 2021 WeAreFrank!
+   Copyright 2021, 2024 WeAreFrank!
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -18,15 +18,14 @@ package nl.nn.testtool.web;
 
 import java.lang.invoke.MethodHandles;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-import javax.servlet.ServletRegistration;
-import javax.servlet.annotation.WebListener;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.webjars.servlet.WebjarsServlet;
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.ServletContextListener;
+import jakarta.servlet.ServletRegistration;
+import jakarta.servlet.annotation.WebListener;
 
 /**
  * One of several methods to add the Ladybug servlets to an application. For this method to work in Tomcat make sure
@@ -49,13 +48,6 @@ public class ServletListener implements ServletContextListener {
 		servletRegistration.addMapping(mapping);
 		servletRegistration.setInitParameters(ApiServlet.getDefaultInitParameters());
 		context.log("Finished registering servlet with name [" + name + "] with mapping [" + mapping + "]");
-
-		name = "WebjarsServlet";
-		logger.info("Registering servlet with name [" + name + "]");
-		servletRegistration = context.addServlet(name, WebjarsServlet.class);
-		servletRegistration.setLoadOnStartup(0);
-		servletRegistration.addMapping("/webjars/*");
-		context.log("Finished registering servlet with name [" + name + "]");
 
 		name = "LadybugFrontendServlet";
 		mapping = FrontendServlet.getDefaultMapping();

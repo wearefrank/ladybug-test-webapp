@@ -7,7 +7,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <ladybug.version>2.3-SNAPSHOT</ladybug.version>
+    <ladybug.version>3.0-SNAPSHOT</ladybug.version>
   </properties>
 
   <name>Ladybug Test Tool Test Webapp</name>
@@ -54,8 +54,13 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-web</artifactId>
-      <version>5.3.23</version>
+      <version>6.1.7</version>
     </dependency>
+<dependency>
+    <groupId>jakarta.transaction</groupId>
+    <artifactId>jakarta.transaction-api</artifactId>
+    <version>2.0.1</version>
+</dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
@@ -63,9 +68,9 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
-      <version>3.1.0</version>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
+      <version>6.0.0</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
