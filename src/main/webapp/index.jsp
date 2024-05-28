@@ -117,6 +117,14 @@
 	if (reportName.equals(createReportAction)) {
 		testTool.startpoint(correlationId, null, reportName, new ByteArrayInputStream(new byte[0]));
 	}
+	reportNames.add(reportName = "Multiple startpoints");
+	if (reportName.equals(createReportAction)) {
+		testTool.startpoint(correlationId, null, reportName, "Hello World!");
+		testTool.startpoint(correlationId, null, "startpoint 2", "Hello World!");
+		testTool.infopoint(correlationId, null, "Hello infopoint", "Hello World!");
+		testTool.endpoint(correlationId, null, "endpoint 2", "Goodbye World!");
+		testTool.endpoint(correlationId, null, reportName, "Goodbye World!");
+	}
 
 	// Other actions
 	if ("true".equals(request.getParameter("clearDebugStorage"))) {
