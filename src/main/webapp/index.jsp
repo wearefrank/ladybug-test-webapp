@@ -142,6 +142,10 @@
 			testTool.removeReportInProgress(0);
 		}
 	}
+	if (request.getParameter("removeReportInProgress") != null) {
+		int nr = Integer.valueOf(request.getParameter("removeReportInProgress"));
+		testTool.removeReportInProgress(nr -1);
+	}
 	if(request.getParameter("setReportInProgressThreshold") != null) {
 		int time = Integer.valueOf(request.getParameter("setReportInProgressThreshold"));
 		testTool.setReportsInProgressThreshold(time);
@@ -186,6 +190,7 @@
   <a href="index.jsp?changeDebugStorage=databaseStorage">Change debug storage to database storage</a><br/>
   <a href="index.jsp?resetDebugStorage=debugStorage">Reset debug storage to default memory storage</a><br/>
   <a href="index.jsp?removeReportsInProgress">Remove reports in progress</a><br/>
+  <a href="index.jsp?removeReportInProgress=1">Remove report in progress number 1</a><br/>
   <a href="h2">Manage H2 database</a> (leave User Name and Password empty but make sure the JDBC URL is filled with the URL from springTestToolTestWebapp.xml)<br/>
   <a href="index.jsp?setReportInProgressThreshold=1000">Set the report in progress threshold to 1 second</a><br/>
   <a href="index.jsp?setReportInProgressThreshold=300000">Reset the report in progress threshold to 5 min</a><br/>
