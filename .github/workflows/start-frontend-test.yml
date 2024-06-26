@@ -1,0 +1,22 @@
+name: Start tests of ladybug-frontend
+on:
+  push:
+jobs:
+  dispatch:
+    name: Start tests of ladybug-frontend
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Push repository_dispatch event to ladybug-frontend - latest commits
+      uses: actions/github-script@v6
+      with:
+        github-token: ${{ secrets.CI_ACCESSTOKEN }}
+        script: |
+          await github.rest.actions.createWorkflowDispatch({
+            owner: 'wearefrank',
+            repo: 'ladybug-frontend',
+            workflow_id: 'testing.js.yml',
+            ref: 'master',
+            inputs: {
+            }
+          })
