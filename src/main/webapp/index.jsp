@@ -1,6 +1,7 @@
 <%@ page import="nl.nn.testtool.TestTool"%>
 <%@ page import="nl.nn.testtool.MessageEncoderImpl"%>
 <%@ page import="nl.nn.testtool.storage.LogStorage"%>
+<%@ page import="nl.nn.testtool.test.webapp.ComplexReports"%>
 <%@ page import="org.springframework.web.context.WebApplicationContext"%>
 <%@ page import="org.springframework.web.context.support.WebApplicationContextUtils"%>
 <%@ page import="java.util.ArrayList"%>
@@ -125,7 +126,14 @@
 		testTool.endpoint(correlationId, null, "endpoint 2", "Goodbye World!");
 		testTool.endpoint(correlationId, null, reportName, "Goodbye World!");
 	}
-
+	reportNames.add(reportName = "Complex success report");
+	if (reportName.equals(createReportAction)) {
+		ComplexReports.fillComplexSuccessReport(correlationId, reportName, testTool);
+	}
+	reportNames.add(reportName = "Complex error report");
+	if (reportName.equals(createReportAction)) {
+		ComplexReports.fillComplexErrorReport(correlationId, reportName, testTool);
+	}
 	// Other actions
 	if ("true".equals(request.getParameter("clearDebugStorage"))) {
 		LogStorage debugStorage = (LogStorage)webApplicationContext.getBean("debugStorage");
