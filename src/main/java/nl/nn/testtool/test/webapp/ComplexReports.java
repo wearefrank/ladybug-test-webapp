@@ -14,7 +14,6 @@ public class ComplexReports {
 		testTool.startpoint(correlationId, null, "First child", "Message for first child");
 		testTool.infopoint(correlationId, null, "First child", "Info about first child");
 		testTool.inputpoint(correlationId, null, "First input of first child", "Value of first input of first child");
-		testTool.threadCreatepoint(correlationId, "new-thread");
 		testTool.threadStartpoint(correlationId, null, "new-thread", null);
 		testTool.threadEndpoint(correlationId, null, "new-thread", null);
 		testTool.outputpoint(correlationId, null, "First output of first child", "Value of first output of first child");
@@ -32,7 +31,7 @@ public class ComplexReports {
 		testTool.infopoint(correlationId, null, "First child", "Info about first child");
 		testTool.inputpoint(correlationId, null, "First input of first child", "Value of first input of first child");
 		testTool.outputpoint(correlationId, null, "First output of first child", "Value of first output of first child");
-		testTool.abortpoint(correlationId, null, reportName, "We simulate that something went wrong in first child");
+		testTool.abortpoint(correlationId, null, "First child", "We simulate that something went wrong in first child");
 		testTool.abortpoint(correlationId, null, reportName, "And the error propagates up");
 	}
 }
