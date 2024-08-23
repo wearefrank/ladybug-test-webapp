@@ -19,6 +19,12 @@
 
 	<context:component-scan base-package="nl.nn.testtool"/>
 
+	<!-- When using OpenTelemetry, change the string value of this bean to the collector you want to use. 
+	For Zipkin, enter the endpoint in the string value. For Jaeger (which doesn't use a endpoint), you can just enter "jaeger" -->
+	<bean name="openTelemetryCollector" class="java.lang.String">
+		<constructor-arg value=""/>
+	</bean>
+
 	<bean name="testTool" class="nl.nn.testtool.TestTool" autowire="byName">
 		<property name="configName" value="Ladybug Test Webapp"/>
 		<property name="configVersion" value="1.0"/>
