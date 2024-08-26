@@ -269,4 +269,87 @@
   Default charset: <%= java.nio.charset.Charset.defaultCharset() %><br/>
   File encoding: <%= System.getProperty("file.encoding") %><br/>
 
+  	<h2>Database Storage</h2>
+	<table>
+		<tr>
+			<th>Field</th>
+			<th>Type</th>
+		</tr>
+		<tr>
+			<td>name</td>
+			<td>String</td>
+		</tr>
+		<tr>
+			<td>table</td>
+			<td>String</td>
+		</tr>
+		<tr>
+			<td>metadataNames</td>
+			<td>List&ltString&gt</td>
+		</tr>
+		<tr>
+			<td>storageIdColumn</td>
+			<td>String</td>
+		</tr>
+		<tr>
+			<td>bigValueColumns</td>
+			<td>List&ltString&gt</td>
+		</tr>
+		<tr>
+			<td>storeReportXml</td>
+			<td>Boolean</td>
+		</tr>
+		<tr>
+			<td>maxStorageSize</td>
+			<td>Long</td>
+		</tr>
+		<tr>
+			<td>ladybugJdbcTemplate</td>
+			<td>JdbcTemplate</td>
+		</tr>
+		<tr>
+			<td>dbmsSupport</td>
+			<td>DbmsSupport</td>
+		</tr>
+		<tr>
+			<td>metadataExtractor</td>
+			<td>MetadataExtractor</td>
+		</tr>
+	</table>
+
+  	<h2>Memory Storage</h2>
+	<table>
+		<tr>
+			<th>Field</th>
+			<th>Type</th>
+		</tr>
+		<tr>
+			<td>name</td>
+			<td>String</td>
+		</tr>
+		<tr>
+			<td>reports</td>
+			<td>Map&ltInteger, Report&gt</td>
+		</tr>
+		<tr>
+			<td>storageIds</td>
+			<td>List&ltInteger&gt</td>
+		</tr>
+		<tr>
+			<td>reports</td>
+			<td>Map&ltInteger, Map&ltInteger, Map&ltString, Object&gt&gt&gt</td>
+		</tr>
+		<tr>
+			<td>initialStorageId (default value 0)</td>
+			<td>int</td>
+		</tr>
+		<tr>
+			<td>storageId</td>
+			<td>int</td>
+		</tr>
+		<tr>
+			<td>metadataExtractor</td>
+			<td>MetadataExtractor</td>
+		</tr>
+	</table>
 </html>
