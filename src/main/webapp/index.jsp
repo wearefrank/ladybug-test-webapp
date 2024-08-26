@@ -352,4 +352,68 @@
 			<td>MetadataExtractor</td>
 		</tr>
 	</table>
+
+	<h2>File Storage</h2>
+	<table>
+		<tr>
+			<th>Field</th>
+			<th>Type</th>
+		</tr>
+		<tr>
+			<td>DEFAULT_MAXIMUM_FILE_SIZE (default value = 1024 * 1024)</td>
+			<td>long</td>
+		</tr>
+		<tr>
+			<td>DEFAULT_MAXIMUM_BACKUP_INDEX (default value = 9)</td>
+			<td>int</td>
+		</tr>
+		<tr>
+			<td>name</td>
+			<td>String</td>
+		</tr>
+		<tr>
+			<td>reader</td>
+			<td>Reader</td>
+		</tr>
+		<tr>
+			<td>writer</td>
+			<td>Writer</td>
+		</tr>
+	</table>
+
+	<h2>Xml Storage</h2>
+	<table>
+		<tr>
+			<th>Field</th>
+			<th>Type</th>
+		</tr>
+		<tr>
+			<td>FILE_EXTENSION (default value = ".report.xml")</td>
+			<td>String</td>
+		</tr>
+		<tr>
+			<td>name</td>
+			<td>String</td>
+		</tr>
+		<tr>
+			<td>metadataFile</td>
+			<td>String</td>
+		</tr>
+		<tr>
+			<td>reportsFolderPath</td>
+			<td>String</td>
+		</tr>
+		<tr>
+			<td>metadataHandler</td>
+			<td>MetadataHandler</td>
+		</tr>
+		<tr>
+			<td>reportsFolder</td>
+			<td>File</td>
+		</tr>
+		<tr>
+			<td>log</td>
+			<td>Logger</td>
+		</tr>
+	</table>
 </html>
