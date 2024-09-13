@@ -19,7 +19,7 @@
 
 	<context:component-scan base-package="nl.nn.testtool"/>
 
-	<bean name="testTool" class="nl.nn.testtool.TestTool" autowire="byName">
+	<bean name="testTool" class="nl.nn.testtool.TestTool">
 		<property name="configName" value="Ladybug Test Webapp"/>
 		<property name="configVersion" value="1.0"/>
 		<property name="maxCheckpoints" value="1000"/>
@@ -41,12 +41,12 @@
 		</property>
 	</bean>
 
-	<bean name="whiteBoxView" class="nl.nn.testtool.filter.View" autowire="byName">
+	<bean name="whiteBoxView" class="nl.nn.testtool.filter.View">
 		<property name="name" value="White box"/>
 	</bean>
 
 	<!-- Demonstrate/test different list of columns for debug tab using a view -->
-	<bean name="nameOnlyView" class="nl.nn.testtool.filter.View" autowire="byName">
+	<bean name="nameOnlyView" class="nl.nn.testtool.filter.View">
 		<property name="name" value="Report name only"/>
 		<property name="metadataNames">
 			<list>
@@ -56,14 +56,14 @@
 		</property>
 	</bean>
 
-	<bean name="fileStorageView" class="nl.nn.testtool.filter.View" autowire="byName">
+	<bean name="fileStorageView" class="nl.nn.testtool.filter.View">
 		<property name="name" value="File storage"/>
 		<property name="debugStorage">
 			<ref bean="fileStorage"/>
 		</property>
 	</bean>
 
-	<bean name="databaseStorageView" class="nl.nn.testtool.filter.View" autowire="byName">
+	<bean name="databaseStorageView" class="nl.nn.testtool.filter.View">
 		<property name="name" value="Database storage"/>
 		<property name="debugStorage">
 			<ref bean="databaseStorage"/>
@@ -84,14 +84,14 @@
 		</property>
 	</bean>
 
-	<bean name="blackBoxView" class="nl.nn.testtool.filter.View" autowire="byName" parent="whiteBoxView">
+	<bean name="blackBoxView" class="nl.nn.testtool.filter.View" parent="whiteBoxView">
 		<property name="name" value="Black box"/>
 		<property name="checkpointMatchers">
 			<bean class="nl.nn.testtool.test.webapp.Matcher"/>
 		</property>
 	</bean>
 
-	<bean name="lowLevelErrorTestView" class="nl.nn.testtool.filter.View" autowire="byName">
+	<bean name="lowLevelErrorTestView" class="nl.nn.testtool.filter.View">
 		<property name="name" value="Low level error demo view" />
 		<property name="debugStorage">
 			<ref bean="errorGeneratingStorage"/>
@@ -123,7 +123,7 @@
 		<constructor-arg value="nl/nn/testtool/test/junit/transformReport.xslt"/>
 	</bean>
 
-	<bean name="rerunner" class="nl.nn.testtool.test.webapp.SimpleRerunner" autowire="byName"/>
+	<bean name="rerunner" class="nl.nn.testtool.test.webapp.SimpleRerunner"/>
 
 	<bean name="customReportAction" class="nl.nn.testtool.extensions.DummyReportAction"/>
 
@@ -148,11 +148,11 @@
 
 	<!-- Use memory storage by default as Cypress tests depend on memory storage / starting with empty storages -->
 
-	<bean name="debugStorage" class="nl.nn.testtool.storage.memory.Storage" autowire="byName">
+	<bean name="debugStorage" class="nl.nn.testtool.storage.memory.Storage">
 		<property name="name" value="Debug"/>
 	</bean>
 
-	<bean name="testStorage" class="nl.nn.testtool.storage.memory.Storage" autowire="byName">
+	<bean name="testStorage" class="nl.nn.testtool.storage.memory.Storage">
 		<property name="name" value="Test"/>
 	</bean>
 
@@ -164,7 +164,7 @@
 		<constructor-arg value="../${ladybug.dir:ladybug}/data/file-storage/ladybug.ttm"/>
 	</bean>
 
-	<bean name="fileStorage" class="nl.nn.testtool.storage.file.Storage" autowire="byName">
+	<bean name="fileStorage" class="nl.nn.testtool.storage.file.Storage">
 		<property name="name" value="fileStorage"/>
 		<property name="reportsFilename" value="#{reportsFilename}"/>
 		<property name="metadataFilename" value="#{metadataFilename}"/>
@@ -181,7 +181,6 @@
 	<bean
 		name="databaseStorage"
 		class="nl.nn.testtool.storage.database.DatabaseStorage"
-		autowire="byName"
 		depends-on="ladybugDatabaseChangelog"
 		>
 		<property name="name" value="databaseStorage"/>
@@ -207,7 +206,7 @@
 
 	<!-- Test logging thread info of reports in progress -->
 
-	<bean name="closeReportsTask" class="nl.nn.testtool.CloseReportsTask" autowire="byName">
+	<bean name="closeReportsTask" class="nl.nn.testtool.CloseReportsTask">
 		<property name="logThreadInfoMinReportAge" value="#{10 * 1000}"/>
 		<property name="logThreadInfoMaxReportAge" value="#{20 * 1000}"/>
 	</bean>
@@ -238,12 +237,12 @@
 		<bean name="defaultView" class="java.lang.String">
 			<constructor-arg value="File storage"/>
 		</bean>
-		<bean name="debugStorage,fileStorage" class="nl.nn.testtool.storage.file.Storage" autowire="byName">
+		<bean name="debugStorage,fileStorage" class="nl.nn.testtool.storage.file.Storage">
 			<property name="name" value="Debug"/>
 			<property name="reportsFilename" value="../${ladybug.dir:ladybug}/data/file-storage/ladybug.tts"/>
 			<property name="metadataFilename" value="../${ladybug.dir:ladybug}/data/file-storage/ladybug.ttm"/>
 		</bean>
-		<bean name="testStorage" class="nl.nn.testtool.storage.file.TestStorage" autowire="byName">
+		<bean name="testStorage" class="nl.nn.testtool.storage.file.TestStorage">
 			<property name="name" value="Test"/>
 			<property name="reportsFilename" value="../${ladybug.dir:ladybug}/data/file-storage/ladybug.tts"/>
 			<property name="metadataFilename" value="../${ladybug.dir:ladybug}/data/file-storage/ladybug.ttm"/>
@@ -251,7 +250,7 @@
 	</beans>
 
 	<beans profile="storage.xml">
-		<bean name="testStorage" class="nl.nn.testtool.storage.xml.XmlStorage" autowire="byName">
+		<bean name="testStorage" class="nl.nn.testtool.storage.xml.XmlStorage">
 			<property name="name" value="Test"/>
 			<property name="reportsFolder" value="../ibis-ladybug-test-webapp/src/test/testtool"/>
 		</bean>
@@ -264,7 +263,6 @@
 		<bean
 			name="debugStorage,databaseStorage"
 			class="nl.nn.testtool.storage.database.DatabaseStorage"
-			autowire="byName"
 			depends-on="ladybugDatabaseChangelog"
 			>
 			<property name="name" value="Debug"/>
@@ -274,7 +272,6 @@
 		<bean
 			name="testStorage"
 			class="nl.nn.testtool.storage.database.DatabaseTestStorage"
-			autowire="byName"
 			depends-on="ladybugDatabaseChangelog"
 			>
 			<property name="name" value="Test"/>
