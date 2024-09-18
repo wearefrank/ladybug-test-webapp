@@ -26,6 +26,7 @@
 		<property name="maxMemoryUsage" value="1000000"/>
 		<property name="maxMessageLength" value="100000"/>
 		<property name="regexFilter" value=".*"/>
+		<property name="rerunner"><ref bean="rerunner"/></property>
 	</bean>
 
 	<bean name="metadataExtractor" class="nl.nn.testtool.MetadataExtractor">
