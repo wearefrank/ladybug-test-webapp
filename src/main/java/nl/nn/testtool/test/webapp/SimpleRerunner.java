@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import lombok.Setter;
 import nl.nn.testtool.Checkpoint;
 import nl.nn.testtool.Report;
@@ -13,7 +15,7 @@ import nl.nn.testtool.TestTool;
 import nl.nn.testtool.run.ReportRunner;
 
 public class SimpleRerunner implements Rerunner {
-	@Setter TestTool testTool;
+	@Setter @Autowired TestTool testTool;
 
 	@Override
 	public String rerun(String correlationId, Report originalReport,
