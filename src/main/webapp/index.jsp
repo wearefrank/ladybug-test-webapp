@@ -182,7 +182,7 @@
 
   <br/>
 
-  <a href="https://github.com/ibissource/ibis-ladybug/tree/master/src/main/java/nl/nn/testtool/web/api">More API info</a><br/>
+  <a href="https://github.com/wearefrank/ladybug/tree/master/src/main/java/nl/nn/testtool/web/api">More API info</a><br/>
 
 
   <h1>Create report</h1>

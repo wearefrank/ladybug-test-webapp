@@ -253,7 +253,7 @@
 	<beans profile="storage.xml">
 		<bean name="testStorage" class="nl.nn.testtool.storage.xml.XmlStorage">
 			<property name="name" value="Test"/>
-			<property name="reportsFolder" value="../ibis-ladybug-test-webapp/src/test/testtool"/>
+			<property name="reportsFolder" value="../ladybug-test-webapp/src/test/testtool"/>
 		</bean>
 	</beans>
 
