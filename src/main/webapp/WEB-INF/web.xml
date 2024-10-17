@@ -39,6 +39,19 @@
 		<url-pattern>/h2/*</url-pattern>
 	</servlet-mapping>
 
+	<filter>
+                <filter-name>CorsFilter</filter-name>
+		<filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
+		<init-param>
+			<param-name>cors.allowed.origins</param-name>
+			<param-value>*</param-name>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CorsFilter</filter-name>
+		<url-pattern>/ladybug/api/*</url-pattern>
+	</filter-mapping>
+
 	<!--
 	Enable security elements below to test security
 	See also ApiAuthorizationFilter.java and *Roles beans in springTestToolTestWebapp.xml
