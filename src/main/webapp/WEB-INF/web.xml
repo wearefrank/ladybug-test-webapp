@@ -39,6 +39,7 @@
 		<url-pattern>/h2/*</url-pattern>
 	</servlet-mapping>
 
+	<!-- Allows the Ladybug API to be called from other domains -->
 	<filter>
         <filter-name>CorsFilter</filter-name>
 		<filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
