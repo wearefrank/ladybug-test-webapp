@@ -39,7 +39,11 @@
 		<url-pattern>/h2/*</url-pattern>
 	</servlet-mapping>
 
-	<!-- Allows the Ladybug API to be called from other domains -->
+	<!--
+	Allows the Ladybug API to be called from other domains. This makes it possible to experiment with uploading test
+	results (reports) from another application with the end goal to add a "Show in Ladybug" link or button in CI/CD
+	environments. Don't copy this to a production system without careful consideration!
+	 -->
 	<filter>
 		<filter-name>CorsFilter</filter-name>
 		<filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
