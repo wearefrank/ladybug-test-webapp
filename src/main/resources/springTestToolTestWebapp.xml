@@ -179,9 +179,13 @@
 		<constructor-arg value="#{10 * 1024 * 1024}"/>
 	</bean>
 
+	<!--
+	DatabaseCrudStorage will make it possible to edit reports in the Debug tab (with new GUI). This is okay for testing
+	purposes but don't copy this for other situations without careful consideration / reading the LogStorage JavaDoc.
+	-->
 	<bean
 		name="databaseStorage"
-		class="nl.nn.testtool.storage.database.DatabaseStorage"
+		class="nl.nn.testtool.storage.database.DatabaseCrudStorage"
 		depends-on="ladybugDatabaseChangelog"
 		>
 		<property name="name" value="databaseStorage"/>
@@ -235,10 +239,8 @@
 	<!-- Profiles -->
 
 	<beans profile="storage.file">
-		<bean name="defaultView" class="java.lang.String">
-			<constructor-arg value="File storage"/>
-		</bean>
-		<bean name="debugStorage,fileStorage" class="nl.nn.testtool.storage.file.Storage">
+		<!-- White box view and TestTool (creating and storing reports) are using debugStorage -->
+		<bean name="debugStorage" class="nl.nn.testtool.storage.file.Storage">
 			<property name="name" value="Debug"/>
 			<property name="reportsFilename" value="../${ladybug.dir:ladybug}/data/file-storage/ladybug.tts"/>
 			<property name="metadataFilename" value="../${ladybug.dir:ladybug}/data/file-storage/ladybug.ttm"/>
@@ -258,12 +260,10 @@
 	</beans>
 
 	<beans profile="storage.database">
-		<bean name="defaultView" class="java.lang.String">
-			<constructor-arg value="Database storage"/>
-		</bean>
+		<!-- White box view and TestTool (creating and storing reports) are using debugStorage -->
 		<bean
-			name="debugStorage,databaseStorage"
-			class="nl.nn.testtool.storage.database.DatabaseStorage"
+			name="debugStorage"
+			class="nl.nn.testtool.storage.database.DatabaseLogStorage"
 			depends-on="ladybugDatabaseChangelog"
 			>
 			<property name="name" value="Debug"/>
