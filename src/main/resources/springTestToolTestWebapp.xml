@@ -246,6 +246,7 @@
 			<property name="reportsFilename" value="../${ladybug.dir:ladybug}/data/file-storage/ladybug.tts"/>
 			<property name="metadataFilename" value="../${ladybug.dir:ladybug}/data/file-storage/ladybug.ttm"/>
 		</bean>
+		<!-- Configure Test tab with file storage -->
 		<bean name="testStorage" class="nl.nn.testtool.storage.file.TestStorage">
 			<property name="name" value="Test"/>
 			<property name="reportsFilename" value="../${ladybug.dir:ladybug}/data/file-storage/ladybug.tts"/>
@@ -254,6 +255,7 @@
 	</beans>
 
 	<beans profile="storage.xml">
+		<!-- Configure Test tab with xml storage -->
 		<bean name="testStorage" class="nl.nn.testtool.storage.xml.XmlStorage">
 			<property name="name" value="Test"/>
 			<property name="reportsFolder" value="../ladybug-test-webapp/src/test/testtool"/>
@@ -271,6 +273,7 @@
 			<property name="maxStorageSize" value="#{maxStorageSize}"/>
 			<property name="storeReportXml" value="true"/>
 		</bean>
+		<!-- Configure Test tab with database storage -->
 		<bean
 			name="testStorage"
 			class="nl.nn.testtool.storage.database.DatabaseTestStorage"
@@ -281,6 +284,7 @@
 	</beans>
 
 	<beans profile="storage.proofofmigration">
+		<!-- Set dropdown with views to "Proof of migration" by default -->
 		<bean name="defaultView" class="java.lang.String">
 			<constructor-arg value="Proof of migration storage"/>
 		</bean>
