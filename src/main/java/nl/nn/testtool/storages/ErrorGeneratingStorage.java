@@ -15,7 +15,9 @@
 */
 package nl.nn.testtool.storages;
 
-public class ErrorGeneratingStorage extends nl.nn.testtool.storage.memory.Storage {
+import nl.nn.testtool.storage.memory.MemoryLogStorage;
+
+public class ErrorGeneratingStorage extends MemoryLogStorage {
     public ErrorGeneratingStorage() {
         super();
     }
