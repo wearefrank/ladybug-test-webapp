@@ -1,5 +1,7 @@
+<%@ page import="nl.nn.testtool.Report"%>
 <%@ page import="nl.nn.testtool.TestTool"%>
 <%@ page import="nl.nn.testtool.MessageEncoderImpl"%>
+<%@ page import="nl.nn.testtool.storage.CrudStorage"%>
 <%@ page import="nl.nn.testtool.storage.LogStorage"%>
 <%@ page import="nl.nn.testtool.test.webapp.ComplexReports"%>
 <%@ page import="org.springframework.web.context.WebApplicationContext"%>
@@ -133,6 +135,12 @@
 	reportNames.add(reportName = "Complex error report");
 	if (reportName.equals(createReportAction)) {
 		ComplexReports.fillComplexErrorReport(correlationId, reportName, testTool);
+	}
+	reportNames.add(reportName = "Add report to database storage");
+	if (reportName.equals(createReportAction)) {
+		Report report = new Report();
+		report.setName("Report for database storage");
+		((CrudStorage)testTool.getStorage("databaseStorage")).store(report);
 	}
 	// Other actions
 	if ("true".equals(request.getParameter("clearDebugStorage"))) {
