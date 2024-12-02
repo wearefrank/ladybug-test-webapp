@@ -10,7 +10,9 @@
 <%@ page import="java.util.Arrays"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.UUID"%>
+<%@ page import="java.io.OutputStream"%>
 <%@ page import="java.io.ByteArrayInputStream"%>
+<%@ page import="java.io.ByteArrayOutputStream"%>
 <%@ page import="java.io.Writer" %>
 <%@ page import="java.io.StringWriter" %>
 <%
@@ -141,6 +143,16 @@
 		Report report = new Report();
 		report.setName("Report for database storage");
 		((CrudStorage)testTool.getStorage("databaseStorage")).store(report);
+	}
+	reportNames.add(reportName = "Empty binary message is captured asynchronously");
+	if (reportName.equals(createReportAction)) {
+		testTool.setCloseMessageCapturers(true);
+		testTool.setCloseThreads(true);
+		testTool.startpoint(correlationId, null, reportName, "Hello World!");
+		OutputStream os = testTool.outputpoint(correlationId, null, "outputStream", new ByteArrayOutputStream());
+		testTool.endpoint(correlationId, null, reportName, "Goodbye World!");
+		testTool.close(correlationId);
+		os.close();
 	}
 	// Other actions
 	if ("true".equals(request.getParameter("clearDebugStorage"))) {
