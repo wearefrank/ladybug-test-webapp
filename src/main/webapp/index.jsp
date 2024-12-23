@@ -207,7 +207,7 @@
   <a href="index.jsp?resetDebugStorage=debugStorage">Reset debug storage to default memory storage</a><br/>
   <a href="index.jsp?removeReportsInProgress">Remove reports in progress</a><br/>
   <a href="index.jsp?removeReportInProgress=1">Remove report in progress number 1</a><br/>
-  <a href="h2">Manage H2 database</a> (leave User Name and Password empty but make sure the JDBC URL is filled with the URL from springTestToolTestWebapp.xml)<br/>
+  <a href="h2">Manage H2 database</a> with JDBC URL set to jdbc:h2:../ladybug/data/database-storage/ladybug (like in springTestToolTestWebapp.xml) and User Name and Password empty<br/>
   <a href="index.jsp?setReportInProgressThreshold=1000">Set the report in progress threshold to 1 second</a><br/>
   <a href="index.jsp?setReportInProgressThreshold=300000">Reset the report in progress threshold to 5 min</a><br/>
 

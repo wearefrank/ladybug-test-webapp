@@ -32,7 +32,7 @@
 
 	<servlet>
 		<servlet-name>H2Servlet</servlet-name>
-		<servlet-class>org.h2.server.web.WebServlet</servlet-class>
+		<servlet-class>org.h2.server.web.JakartaWebServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>H2Servlet</servlet-name>
