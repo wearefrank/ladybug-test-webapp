@@ -3,6 +3,7 @@
 <%@ page import="nl.nn.testtool.MessageEncoderImpl"%>
 <%@ page import="nl.nn.testtool.storage.CrudStorage"%>
 <%@ page import="nl.nn.testtool.storage.LogStorage"%>
+<%@ page import="nl.nn.testtool.storage.Storage"%>
 <%@ page import="nl.nn.testtool.test.webapp.ComplexReports"%>
 <%@ page import="org.springframework.web.context.WebApplicationContext"%>
 <%@ page import="org.springframework.web.context.support.WebApplicationContextUtils"%>
@@ -147,6 +148,10 @@
 		LogStorage debugStorage = (LogStorage)webApplicationContext.getBean("debugStorage");
 		debugStorage.clear();
 	}
+	if ("true".equals(request.getParameter("clearDatabaseStorage"))) {
+		Storage databaseStorage = (Storage)webApplicationContext.getBean("databaseStorage");
+		databaseStorage.clear();
+	}
 	if (request.getParameter("changeDebugStorage") != null) {
 		testTool.setDebugStorage((LogStorage)testTool.getStorage(request.getParameter("changeDebugStorage")));
 	}
@@ -203,6 +208,7 @@
   <h1>Other actions</h1>
 
   <a href="index.jsp?clearDebugStorage=true">Clear debug storage</a><br/>
+  <a href="index.jsp?clearDatabaseStorage=true">Clear database storage</a><br/> 
   <a href="index.jsp?changeDebugStorage=databaseStorage">Change debug storage to database storage</a><br/>
   <a href="index.jsp?resetDebugStorage=debugStorage">Reset debug storage to default memory storage</a><br/>
   <a href="index.jsp?removeReportsInProgress">Remove reports in progress</a><br/>
