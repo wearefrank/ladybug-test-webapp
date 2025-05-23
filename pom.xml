@@ -16,8 +16,8 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.ibissource</groupId>
-      <artifactId>ibis-ladybug</artifactId>
+      <groupId>org.wearefrank</groupId>
+      <artifactId>ladybug</artifactId>
       <version>${ladybug.version}</version>
     </dependency>
     <!-- Reuse transformReport.xslt from ibis-ladybug test resources. See also https://maven.apache.org/plugins/maven-jar-plugin/examples/create-test-jar.html -->
