@@ -8,6 +8,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <ladybug.version>3.0-SNAPSHOT</ladybug.version>
+    <spring.version>6.2.8</spring.version>
   </properties>
 
   <name>Ladybug Test Tool Test Webapp</name>
@@ -43,7 +44,7 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-web</artifactId>
-      <version>6.1.7</version>
+      <version>${spring.version}</version>
     </dependency>
     <dependency>
       <groupId>jakarta.enterprise</groupId>
