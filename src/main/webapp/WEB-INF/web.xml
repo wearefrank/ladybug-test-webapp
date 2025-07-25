@@ -18,6 +18,24 @@
 	</listener>
 
 	<servlet>
+		<servlet-name>test-servlet</servlet-name>
+		<servlet-class>nl.nn.testtool.web.TestServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>test-servlet</servlet-name>
+		<url-pattern>/test-servlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>spring-mvc-dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>spring-mvc-dispatcher</servlet-name>
+		<url-pattern>/ladybug/api/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
 		<servlet-name>H2Servlet</servlet-name>
 		<servlet-class>org.h2.server.web.JakartaWebServlet</servlet-class>
 	</servlet>
