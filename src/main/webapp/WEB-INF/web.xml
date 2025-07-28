@@ -28,15 +28,6 @@
 		<servlet-name>test-servlet</servlet-name>
 		<url-pattern>/test-servlet</url-pattern>
 	</servlet-mapping>
-	<servlet>
-		<servlet-name>spring-mvc-dispatcher</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>spring-mvc-dispatcher</servlet-name>
-		<url-pattern>/ladybug/api/*</url-pattern>
-	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>H2Servlet</servlet-name>
@@ -64,27 +55,4 @@
 		<filter-name>CorsFilter</filter-name>
 		<url-pattern>/ladybug/api/*</url-pattern>
 	</filter-mapping>
-
-	<!--
-	Enable security elements below to test security
-	See also ApiAuthorizationFilter.java and *Roles beans in springTestToolTestWebapp.xml
-	<login-config>
-		<auth-method>BASIC</auth-method>
-		<realm-name>Ladybug test webapp</realm-name>
-	</login-config>
-	<security-constraint>
-		<web-resource-collection>
-			<web-resource-name>All resources</web-resource-name>
-			<url-pattern>/*</url-pattern>
-		</web-resource-collection>
-		<auth-constraint>
-			<role-name>IbisObserver</role-name>
-			<role-name>IbisAdmin</role-name>
-			<role-name>IbisDataAdmin</role-name>
-			<role-name>IbisTester</role-name>
-			<role-name>IbisWebService</role-name>
-		</auth-constraint>
-	</security-constraint>
-	-->
-
 </web-app>
