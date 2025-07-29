@@ -17,6 +17,10 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:springTestToolTestWebapp.xml</param-value>
+	</context-param>
 	<servlet>
 		<servlet-name>test-servlet</servlet-name>
 		<servlet-class>nl.nn.testtool.web.TestServlet</servlet-class>
@@ -38,6 +42,10 @@
 		<servlet-name>spring-mvc-dispatcher</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:dispatcherServlet.xml</param-value>
+		</init-param>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>spring-mvc-dispatcher</servlet-name>
