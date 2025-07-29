@@ -35,6 +35,16 @@
 		<url-pattern>/ladybug/*</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>spring-mvc-dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>spring-mvc-dispatcher</servlet-name>
+		<url-pattern>/ladybug/api/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
 		<servlet-name>H2Servlet</servlet-name>
 		<servlet-class>org.h2.server.web.JakartaWebServlet</servlet-class>
 	</servlet>
