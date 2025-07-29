@@ -9,20 +9,17 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 
-import nl.nn.testtool.web.api.SomeBean;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
-
-import java.io.IOException;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
+@EnableWebMvc
 @EnableWebSecurity
 @EnableMethodSecurity(jsr250Enabled = true, proxyTargetClass = true)
 public class TestWebappSecurityConfiguration {
@@ -68,10 +65,5 @@ public class TestWebappSecurityConfiguration {
         http.userDetailsService(udm);
 
         return http.build();
-    }
-
-    @Bean
-    SomeBean hello() {
-        return new SomeBean();
     }
 }
