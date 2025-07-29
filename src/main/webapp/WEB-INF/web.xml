@@ -17,9 +17,6 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
-	<listener>
-		<listener-class>nl.nn.testtool.web.ServletListener</listener-class>
-	</listener>
 	<servlet>
 		<servlet-name>test-servlet</servlet-name>
 		<servlet-class>nl.nn.testtool.web.TestServlet</servlet-class>
@@ -29,6 +26,14 @@
 		<url-pattern>/test-servlet</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>LadybugFrontendServlet</servlet-name>
+		<servlet-class>nl.nn.testtool.web.FrontendServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LadybugFrontendServlet</servlet-name>
+		<url-pattern>/ladybug/*</url-pattern>
+	</servlet-mapping>
 	<servlet>
 		<servlet-name>H2Servlet</servlet-name>
 		<servlet-class>org.h2.server.web.JakartaWebServlet</servlet-class>
