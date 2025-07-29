@@ -5,6 +5,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.AuthenticationException;
@@ -22,6 +24,7 @@ import java.io.IOException;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity(jsr250Enabled = true, proxyTargetClass = true)
 public class TestWebappSecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -34,10 +37,11 @@ public class TestWebappSecurityConfiguration {
         http.securityMatcher(securityRequestMatcher);
 
         // Enables security for all servlet endpoints
-        http.authorizeHttpRequests(requests -> requests.requestMatchers(securityRequestMatcher).authenticated());
+        http.authorizeHttpRequests(requests -> requests
+                .requestMatchers(securityRequestMatcher).authenticated());
 
         // Uses a BasicAuthenticationEntryPoint to force users to log in
-        http.httpBasic(basic -> basic.realmName("Frank"));
+        http.httpBasic(Customizer.withDefaults());
 
         UserDetails observerUser = User.builder()
                 .username("observer")
@@ -64,15 +68,6 @@ public class TestWebappSecurityConfiguration {
         http.userDetailsService(udm);
 
         return http.build();
-    }
-
-    private static class Http401EntryPoint implements AuthenticationEntryPoint {
-
-        @Override
-        public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-            // Block all requests
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Access Denied, configure an authenticator to enable web access.");
-        }
     }
 
     @Bean
