@@ -8,6 +8,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <ladybug.version>3.0-SNAPSHOT</ladybug.version>
+    <spring.security.version>6.5.1</spring.security.version>
   </properties>
 
   <name>Ladybug Test Tool Test Webapp</name>
@@ -43,17 +44,17 @@
     <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-core</artifactId>
-      <version>6.5.1</version>
+      <version>${spring.security.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-config</artifactId>
-      <version>6.5.1</version>
+      <version>${spring.security.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-web</artifactId>
-      <version>6.5.1</version>
+      <version>${spring.security.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
