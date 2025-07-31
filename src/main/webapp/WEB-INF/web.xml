@@ -21,14 +21,6 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:springTestToolTestWebapp.xml</param-value>
 	</context-param>
-	<servlet>
-		<servlet-name>test-servlet</servlet-name>
-		<servlet-class>nl.nn.testtool.web.TestServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>test-servlet</servlet-name>
-		<url-pattern>/test-servlet</url-pattern>
-	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>LadybugFrontendServlet</servlet-name>
