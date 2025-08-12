@@ -58,6 +58,7 @@
 	results (reports) from another application with the end goal to add a "Show in Ladybug" link or button in CI/CD
 	environments. Don't copy this to a production system without careful consideration!
 	 -->
+	<!--
 	<filter>
 		<filter-name>CorsFilter</filter-name>
 		<filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
@@ -70,6 +71,7 @@
 		<filter-name>CorsFilter</filter-name>
 		<url-pattern>/ladybug/api/*</url-pattern>
 	</filter-mapping>
+	-->
 
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>

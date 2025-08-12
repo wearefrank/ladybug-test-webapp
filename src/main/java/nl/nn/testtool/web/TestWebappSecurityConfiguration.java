@@ -63,6 +63,8 @@ public class TestWebappSecurityConfiguration {
         // Create an UserDetailsManager without any users.
         InMemoryUserDetailsManager udm = new InMemoryUserDetailsManager(observerUser, dataAdminUser, adminUser, testerUser);
         http.userDetailsService(udm);
+        // TODO: Do we want to disable CSRF protection for Ladybug?
+        http.csrf().disable();
 
         return http.build();
     }
