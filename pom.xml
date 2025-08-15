@@ -8,7 +8,6 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <ladybug.version>3.0-SNAPSHOT</ladybug.version>
-    <spring.security.version>6.5.1</spring.security.version>
   </properties>
 
   <name>Ladybug Test Tool Test Webapp</name>
