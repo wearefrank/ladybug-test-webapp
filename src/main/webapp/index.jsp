@@ -14,6 +14,8 @@
 <%@ page import="java.io.ByteArrayInputStream"%>
 <%@ page import="java.io.Writer" %>
 <%@ page import="java.io.StringWriter" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.HashMap" %>
 <%
 	ServletContext servletContext = request.getSession().getServletContext();
 	WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(servletContext);
@@ -142,6 +144,13 @@
 		Report report = new Report();
 		report.setName("Report for database storage");
 		((CrudStorage)testTool.getStorage("databaseStorage")).store(report);
+	}
+	reportNames.add(reportName = "Report with message context");
+	if (reportName.equals(createReportAction)) {
+		testTool.startpoint(correlationId, null, reportName, "Hello World!");
+		Map<String, Object> messageContext = new HashMap<String, Object>();
+		messageContext.put("messageContextKey", "messageContextValue");
+		testTool.endpoint(correlationId, null, reportName, "Goodbye World!", messageContext);
 	}
 	// Other actions
 	if ("true".equals(request.getParameter("clearDebugStorage"))) {
