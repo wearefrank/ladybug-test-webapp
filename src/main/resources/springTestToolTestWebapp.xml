@@ -128,25 +128,6 @@
 
 	<bean name="customReportAction" class="nl.nn.testtool.extensions.DummyReportAction"/>
 
-	<!--  Enable security elements in web.xml to test roles -->
-
-	<util:list id="observerRoles">
-		<value>IbisObserver</value>
-		<value>IbisDataAdmin</value>
-		<value>IbisAdmin</value>
-		<value>IbisTester</value>
-	</util:list>
-
-	<util:list id="dataAdminRoles">
-		<value>IbisDataAdmin</value>
-		<value>IbisAdmin</value>
-		<value>IbisTester</value>
-	</util:list>
-
-	<util:list id="testerRoles">
-		<value>IbisTester</value>
-	</util:list>
-
 	<!-- Use memory storage by default as Cypress tests depend on memory storage / starting with empty storages -->
 
 	<bean name="debugStorage" class="nl.nn.testtool.storage.memory.MemoryLogStorage">

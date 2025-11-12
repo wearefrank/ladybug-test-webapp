@@ -17,17 +17,32 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
-	<listener>
-		<listener-class>nl.nn.testtool.web.ServletListener</listener-class>
-	</listener>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:springTestToolTestWebapp.xml</param-value>
+	</context-param>
 
 	<servlet>
-		<servlet-name>TestToolServlet</servlet-name>
-		<servlet-class>nl.nn.testtool.test.webapp.Servlet</servlet-class>
+		<servlet-name>LadybugFrontendServlet</servlet-name>
+		<servlet-class>nl.nn.testtool.web.FrontendServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>TestToolServlet</servlet-name>
-		<url-pattern>/testtool</url-pattern>
+		<servlet-name>LadybugFrontendServlet</servlet-name>
+		<url-pattern>/ladybug/*</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>spring-mvc-dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<multipart-config />
+		<load-on-startup>1</load-on-startup>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:dispatcherServlet.xml</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>spring-mvc-dispatcher</servlet-name>
+		<url-pattern>/ladybug/api/*</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -44,6 +59,7 @@
 	results (reports) from another application with the end goal to add a "Show in Ladybug" link or button in CI/CD
 	environments. Don't copy this to a production system without careful consideration!
 	 -->
+	<!--
 	<filter>
 		<filter-name>CorsFilter</filter-name>
 		<filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
@@ -56,27 +72,6 @@
 		<filter-name>CorsFilter</filter-name>
 		<url-pattern>/ladybug/api/*</url-pattern>
 	</filter-mapping>
-
-	<!--
-	Enable security elements below to test security
-	See also ApiAuthorizationFilter.java and *Roles beans in springTestToolTestWebapp.xml
-	<login-config>
-		<auth-method>BASIC</auth-method>
-		<realm-name>Ladybug test webapp</realm-name>
-	</login-config>
-	<security-constraint>
-		<web-resource-collection>
-			<web-resource-name>All resources</web-resource-name>
-			<url-pattern>/*</url-pattern>
-		</web-resource-collection>
-		<auth-constraint>
-			<role-name>IbisObserver</role-name>
-			<role-name>IbisAdmin</role-name>
-			<role-name>IbisDataAdmin</role-name>
-			<role-name>IbisTester</role-name>
-			<role-name>IbisWebService</role-name>
-		</auth-constraint>
-	</security-constraint>
 	-->
 
 </web-app>
