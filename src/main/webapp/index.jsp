@@ -1,10 +1,10 @@
-<%@ page import="nl.nn.testtool.Report"%>
-<%@ page import="nl.nn.testtool.TestTool"%>
-<%@ page import="nl.nn.testtool.MessageEncoderImpl"%>
-<%@ page import="nl.nn.testtool.storage.CrudStorage"%>
-<%@ page import="nl.nn.testtool.storage.LogStorage"%>
-<%@ page import="nl.nn.testtool.storage.Storage"%>
-<%@ page import="nl.nn.testtool.test.webapp.ComplexReports"%>
+<%@ page import="org.wearefrank.ladybug.Report"%>
+<%@ page import="org.wearefrank.ladybug.TestTool"%>
+<%@ page import="org.wearefrank.ladybug.MessageEncoderImpl"%>
+<%@ page import="org.wearefrank.ladybug.storage.CrudStorage"%>
+<%@ page import="org.wearefrank.ladybug.storage.LogStorage"%>
+<%@ page import="org.wearefrank.ladybug.storage.Storage"%>
+<%@ page import="org.wearefrank.ladybug.test.webapp.ComplexReports"%>
 <%@ page import="org.springframework.web.context.WebApplicationContext"%>
 <%@ page import="org.springframework.web.context.support.WebApplicationContextUtils"%>
 <%@ page import="java.util.ArrayList"%>
@@ -203,9 +203,6 @@
   <a href="http://localhost:4200/api/metadata">Metadata API proxied by Node.js</a><br/>
 
   <br/>
-
-  <a href="https://github.com/wearefrank/ladybug/tree/master/src/main/java/nl/nn/testtool/web/api">More API info</a><br/>
-
 
   <h1>Create report</h1>
 
