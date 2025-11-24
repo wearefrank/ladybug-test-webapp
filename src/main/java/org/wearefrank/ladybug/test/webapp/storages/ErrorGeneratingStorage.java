@@ -15,7 +15,7 @@
 */
 package org.wearefrank.ladybug.test.webapp.storages;
 
-import nl.nn.testtool.storage.memory.MemoryLogStorage;
+import org.wearefrank.ladybug.storage.memory.MemoryLogStorage;
 
 public class ErrorGeneratingStorage extends MemoryLogStorage {
     public ErrorGeneratingStorage() {

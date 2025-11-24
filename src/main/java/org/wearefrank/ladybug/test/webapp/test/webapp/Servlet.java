@@ -23,7 +23,7 @@ import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import nextapp.echo2.app.ApplicationInstance;
 import nextapp.echo2.webcontainer.WebContainerServlet;
-import nl.nn.testtool.echo2.Echo2Application;
+import org.wearefrank.ladybug.echo2.Echo2Application;
 
 /**
  * @author Jaco de Groot

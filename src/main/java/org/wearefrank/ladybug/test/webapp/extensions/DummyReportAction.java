@@ -17,7 +17,9 @@ package org.wearefrank.ladybug.test.webapp.extensions;
 
 import java.util.List;
 
-import nl.nn.testtool.Report;
+import org.wearefrank.ladybug.Report;
+import org.wearefrank.ladybug.extensions.CustomReportAction;
+import org.wearefrank.ladybug.extensions.CustomReportActionResult;
 
 public class DummyReportAction implements CustomReportAction {
 

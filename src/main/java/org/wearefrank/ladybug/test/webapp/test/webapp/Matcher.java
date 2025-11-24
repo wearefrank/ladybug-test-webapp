@@ -1,8 +1,8 @@
 package org.wearefrank.ladybug.test.webapp.test.webapp;
 
-import nl.nn.testtool.Checkpoint;
-import nl.nn.testtool.Report;
-import nl.nn.testtool.filter.CheckpointMatcher;
+import org.wearefrank.ladybug.Checkpoint;
+import org.wearefrank.ladybug.Report;
+import org.wearefrank.ladybug.filter.CheckpointMatcher;
 
 public class Matcher implements CheckpointMatcher {
 

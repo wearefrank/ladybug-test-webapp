@@ -27,6 +27,9 @@ import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.ServletRegistration;
 import jakarta.servlet.annotation.WebListener;
 
+import org.wearefrank.ladybug.web.jaxrs.api.ApiServlet;
+import org.wearefrank.ladybug.web.FrontendServlet;
+
 /**
  * One of several methods to add the Ladybug servlets to an application. For this method to work in Tomcat make sure
  * the Ladybug jar is enabled for jar scanning (see jarsToSkip and jarsToScan in catalina.properties) or explicitly add

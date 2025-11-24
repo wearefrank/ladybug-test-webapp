@@ -1,6 +1,6 @@
 package org.wearefrank.ladybug.test.webapp.test.webapp;
 
-import nl.nn.testtool.TestTool;
+import org.wearefrank.ladybug.TestTool;
 
 public class ComplexReports {
 	private ComplexReports() {
