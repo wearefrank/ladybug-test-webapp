@@ -1,4 +1,4 @@
-package nl.nn.testtool.test.webapp;
+package org.wearefrank.ladybug.test.webapp.test.webapp;
 
 import java.util.Arrays;
 import java.util.HashSet;

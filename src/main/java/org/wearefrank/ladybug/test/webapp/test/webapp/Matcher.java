@@ -1,4 +1,4 @@
-package nl.nn.testtool.test.webapp;
+package org.wearefrank.ladybug.test.webapp.test.webapp;
 
 import nl.nn.testtool.Checkpoint;
 import nl.nn.testtool.Report;
