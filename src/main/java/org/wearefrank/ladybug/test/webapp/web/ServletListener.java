@@ -27,7 +27,7 @@ import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.ServletRegistration;
 import jakarta.servlet.annotation.WebListener;
 
-import org.wearefrank.ladybug.web.jaxrs.api.ApiServlet;
+import org.wearefrank.ladybug.web.jaxrs.ApiServlet;
 import org.wearefrank.ladybug.web.FrontendServlet;
 
 /**
