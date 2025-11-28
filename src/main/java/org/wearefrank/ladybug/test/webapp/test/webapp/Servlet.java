@@ -13,7 +13,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-package nl.nn.testtool.test.webapp;
+package org.wearefrank.ladybug.test.webapp.test.webapp;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
@@ -23,7 +23,7 @@ import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import nextapp.echo2.app.ApplicationInstance;
 import nextapp.echo2.webcontainer.WebContainerServlet;
-import nl.nn.testtool.echo2.Echo2Application;
+import org.wearefrank.ladybug.echo2.Echo2Application;
 
 /**
  * @author Jaco de Groot

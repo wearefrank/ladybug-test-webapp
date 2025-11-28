@@ -13,9 +13,9 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-package nl.nn.testtool.storages;
+package org.wearefrank.ladybug.test.webapp.storages;
 
-import nl.nn.testtool.storage.memory.MemoryLogStorage;
+import org.wearefrank.ladybug.storage.memory.MemoryLogStorage;
 
 public class ErrorGeneratingStorage extends MemoryLogStorage {
     public ErrorGeneratingStorage() {

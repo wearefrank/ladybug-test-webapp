@@ -13,7 +13,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-package nl.nn.testtool.web;
+package org.wearefrank.ladybug.test.webapp.web;
 
 
 import java.lang.invoke.MethodHandles;
@@ -26,6 +26,9 @@ import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.ServletRegistration;
 import jakarta.servlet.annotation.WebListener;
+
+import org.wearefrank.ladybug.web.jaxrs.ApiServlet;
+import org.wearefrank.ladybug.web.FrontendServlet;
 
 /**
  * One of several methods to add the Ladybug servlets to an application. For this method to work in Tomcat make sure

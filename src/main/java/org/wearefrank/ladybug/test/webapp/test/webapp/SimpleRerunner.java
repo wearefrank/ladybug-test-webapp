@@ -1,4 +1,4 @@
-package nl.nn.testtool.test.webapp;
+package org.wearefrank.ladybug.test.webapp.test.webapp;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -7,12 +7,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import lombok.Setter;
-import nl.nn.testtool.Checkpoint;
-import nl.nn.testtool.Report;
-import nl.nn.testtool.Rerunner;
-import nl.nn.testtool.SecurityContext;
-import nl.nn.testtool.TestTool;
-import nl.nn.testtool.run.ReportRunner;
+import org.wearefrank.ladybug.Checkpoint;
+import org.wearefrank.ladybug.Report;
+import org.wearefrank.ladybug.Rerunner;
+import org.wearefrank.ladybug.SecurityContext;
+import org.wearefrank.ladybug.TestTool;
+import org.wearefrank.ladybug.run.ReportRunner;
 
 public class SimpleRerunner implements Rerunner {
 	@Setter @Autowired TestTool testTool;

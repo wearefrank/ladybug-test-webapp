@@ -17,9 +17,9 @@
 	<!-- Make ${ladybug.dir:ladybug} read system property ladybug.dir with default value ladybug -->
 	<context:property-placeholder/>
 
-	<context:component-scan base-package="nl.nn.testtool"/>
+	<context:component-scan base-package="org.wearefrank.ladybug"/>
 
-	<bean name="testTool" class="nl.nn.testtool.TestTool">
+	<bean name="testTool" class="org.wearefrank.ladybug.TestTool">
 		<property name="configName" value="Ladybug Test Webapp"/>
 		<property name="configVersion" value="1.0"/>
 		<property name="maxCheckpoints" value="1000"/>
@@ -29,10 +29,10 @@
 		<property name="rerunner"><ref bean="rerunner"/></property>
 	</bean>
 
-	<bean name="metadataExtractor" class="nl.nn.testtool.MetadataExtractor">
+	<bean name="metadataExtractor" class="org.wearefrank.ladybug.MetadataExtractor">
 		<property name="extraMetadataFieldExtractors">
 			<list>
-				<bean class="nl.nn.testtool.metadata.RegexMetadataFieldExtractor">
+				<bean class="org.wearefrank.ladybug.metadata.RegexMetadataFieldExtractor">
 					<!-- See LadybugCustomDatabaseChangelog.xml -->
 					<property name="name" value="custom"/>
 					<property name="label" value="Custom"/>
@@ -42,12 +42,12 @@
 		</property>
 	</bean>
 
-	<bean name="whiteBoxView" class="nl.nn.testtool.filter.View">
+	<bean name="whiteBoxView" class="org.wearefrank.ladybug.filter.View">
 		<property name="name" value="White box"/>
 	</bean>
 
 	<!-- Demonstrate/test different list of columns for debug tab using a view -->
-	<bean name="nameOnlyView" class="nl.nn.testtool.filter.View">
+	<bean name="nameOnlyView" class="org.wearefrank.ladybug.filter.View">
 		<property name="name" value="Report name only"/>
 		<property name="metadataNames">
 			<list>
@@ -57,14 +57,14 @@
 		</property>
 	</bean>
 
-	<bean name="fileStorageView" class="nl.nn.testtool.filter.View">
+	<bean name="fileStorageView" class="org.wearefrank.ladybug.filter.View">
 		<property name="name" value="File storage"/>
 		<property name="debugStorage">
 			<ref bean="fileStorage"/>
 		</property>
 	</bean>
 
-	<bean name="databaseStorageView" class="nl.nn.testtool.filter.View">
+	<bean name="databaseStorageView" class="org.wearefrank.ladybug.filter.View">
 		<property name="name" value="Database storage"/>
 		<property name="debugStorage">
 			<ref bean="databaseStorage"/>
@@ -85,20 +85,20 @@
 		</property>
 	</bean>
 
-	<bean name="blackBoxView" class="nl.nn.testtool.filter.View" parent="whiteBoxView">
+	<bean name="blackBoxView" class="org.wearefrank.ladybug.filter.View" parent="whiteBoxView">
 		<property name="name" value="Black box"/>
 		<property name="checkpointMatchers">
-			<bean class="nl.nn.testtool.test.webapp.Matcher"/>
+			<bean class="org.wearefrank.ladybug.test.webapp.test.webapp.Matcher"/>
 		</property>
 	</bean>
 
-	<bean name="lowLevelErrorTestView" class="nl.nn.testtool.filter.View">
+	<bean name="lowLevelErrorTestView" class="org.wearefrank.ladybug.filter.View">
 		<property name="name" value="Low level error demo view" />
 		<property name="debugStorage">
 			<ref bean="errorGeneratingStorage"/>
 		</property>
 	</bean>
-	<bean name="views" class="nl.nn.testtool.filter.Views">
+	<bean name="views" class="org.wearefrank.ladybug.filter.Views">
 		<property name="views">
 			<list>
 				<ref bean="nameOnlyView"/>
@@ -121,12 +121,12 @@
 	</bean>
 
 	<bean name="xsltResource" class="java.lang.String">
-		<constructor-arg value="nl/nn/testtool/test/junit/transformReport.xslt"/>
+		<constructor-arg value="org/wearefrank/ladybug/test/junit/transformReport.xslt"/>
 	</bean>
 
-	<bean name="rerunner" class="nl.nn.testtool.test.webapp.SimpleRerunner"/>
+	<bean name="rerunner" class="org.wearefrank.ladybug.test.webapp.test.webapp.SimpleRerunner"/>
 
-	<bean name="customReportAction" class="nl.nn.testtool.extensions.DummyReportAction"/>
+	<bean name="customReportAction" class="org.wearefrank.ladybug.test.webapp.extensions.DummyReportAction"/>
 
 	<!--  Enable security elements in web.xml to test roles -->
 
@@ -149,11 +149,11 @@
 
 	<!-- Use memory storage by default as Cypress tests depend on memory storage / starting with empty storages -->
 
-	<bean name="debugStorage" class="nl.nn.testtool.storage.memory.MemoryLogStorage">
+	<bean name="debugStorage" class="org.wearefrank.ladybug.storage.memory.MemoryLogStorage">
 		<property name="name" value="Debug"/>
 	</bean>
 
-	<bean name="testStorage" class="nl.nn.testtool.storage.memory.MemoryCrudStorage">
+	<bean name="testStorage" class="org.wearefrank.ladybug.storage.memory.MemoryCrudStorage">
 		<property name="name" value="Test"/>
 	</bean>
 
@@ -165,13 +165,13 @@
 		<constructor-arg value="../${ladybug.dir:ladybug}/data/file-storage/ladybug.ttm"/>
 	</bean>
 
-	<bean name="fileStorage" class="nl.nn.testtool.storage.file.Storage">
+	<bean name="fileStorage" class="org.wearefrank.ladybug.storage.file.Storage">
 		<property name="name" value="fileStorage"/>
 		<property name="reportsFilename" value="#{reportsFilename}"/>
 		<property name="metadataFilename" value="#{metadataFilename}"/>
 	</bean>
 
-	<bean name="errorGeneratingStorage" class="nl.nn.testtool.storages.ErrorGeneratingStorage">
+	<bean name="errorGeneratingStorage" class="org.wearefrank.ladybug.test.webapp.storages.ErrorGeneratingStorage">
 		<property name="name" value="errorGeneratingStorage" />
 	</bean>
 
@@ -186,7 +186,7 @@
 	-->
 	<bean
 		name="databaseStorage"
-		class="nl.nn.testtool.storage.database.DatabaseCrudStorage"
+		class="org.wearefrank.ladybug.storage.database.DatabaseCrudStorage"
 		depends-on="ladybugDatabaseChangelog"
 		>
 		<property name="name" value="databaseStorage"/>
@@ -212,7 +212,7 @@
 
 	<!-- Test logging thread info of reports in progress -->
 
-	<bean name="closeReportsTask" class="nl.nn.testtool.CloseReportsTask">
+	<bean name="closeReportsTask" class="org.wearefrank.ladybug.CloseReportsTask">
 		<property name="logThreadInfoMinReportAge" value="#{10 * 1000}"/>
 		<property name="logThreadInfoMaxReportAge" value="#{20 * 1000}"/>
 	</bean>
@@ -241,13 +241,13 @@
 
 	<beans profile="storage.file">
 		<!-- White box view and TestTool (creating and storing reports) are using debugStorage -->
-		<bean name="debugStorage" class="nl.nn.testtool.storage.file.Storage">
+		<bean name="debugStorage" class="org.wearefrank.ladybug.storage.file.Storage">
 			<property name="name" value="Debug"/>
 			<property name="reportsFilename" value="../${ladybug.dir:ladybug}/data/file-storage/ladybug.tts"/>
 			<property name="metadataFilename" value="../${ladybug.dir:ladybug}/data/file-storage/ladybug.ttm"/>
 		</bean>
 		<!-- Configure Test tab with file storage -->
-		<bean name="testStorage" class="nl.nn.testtool.storage.file.TestStorage">
+		<bean name="testStorage" class="org.wearefrank.ladybug.storage.file.TestStorage">
 			<property name="name" value="Test"/>
 			<property name="reportsFilename" value="../${ladybug.dir:ladybug}/data/file-storage/ladybug.tts"/>
 			<property name="metadataFilename" value="../${ladybug.dir:ladybug}/data/file-storage/ladybug.ttm"/>
@@ -256,7 +256,7 @@
 
 	<beans profile="storage.xml">
 		<!-- Configure Test tab with xml storage -->
-		<bean name="testStorage" class="nl.nn.testtool.storage.xml.XmlStorage">
+		<bean name="testStorage" class="org.wearefrank.ladybug.storage.xml.XmlStorage">
 			<property name="name" value="Test"/>
 			<property name="reportsFolder" value="../ladybug-test-webapp/src/test/testtool"/>
 		</bean>
@@ -266,7 +266,7 @@
 		<!-- White box view and TestTool (creating and storing reports) are using debugStorage -->
 		<bean
 			name="debugStorage"
-			class="nl.nn.testtool.storage.database.DatabaseLogStorage"
+			class="org.wearefrank.ladybug.storage.database.DatabaseLogStorage"
 			depends-on="ladybugDatabaseChangelog"
 			>
 			<property name="name" value="Debug"/>
@@ -276,7 +276,7 @@
 		<!-- Configure Test tab with database storage -->
 		<bean
 			name="testStorage"
-			class="nl.nn.testtool.storage.database.DatabaseTestStorage"
+			class="org.wearefrank.ladybug.storage.database.DatabaseTestStorage"
 			depends-on="ladybugDatabaseChangelog"
 			>
 			<property name="name" value="Test"/>
