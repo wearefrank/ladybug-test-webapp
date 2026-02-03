@@ -7,7 +7,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <ladybug.version>3.0-SNAPSHOT</ladybug.version>
+    <ladybug.version>4.0-SNAPSHOT</ladybug.version>
   </properties>
 
   <name>Ladybug Test Tool Test Webapp</name>
